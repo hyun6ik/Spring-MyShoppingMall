@@ -45,6 +45,10 @@ dependencies {
 
     //StringUtils 기능 확장
     implementation 'org.apache.commons:commons-lang3:3.9'
+
+    //H2
+    runtimeOnly 'com.h2database:h2'
+
 }
 
 tasks.named('test') {
