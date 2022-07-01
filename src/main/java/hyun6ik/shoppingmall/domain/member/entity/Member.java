@@ -1,6 +1,6 @@
 package hyun6ik.shoppingmall.domain.member.entity;
 
-import hyun6ik.shoppingmall.domain.base.BaseEntity;
+import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.member.constant.MemberRole;
 import hyun6ik.shoppingmall.domain.member.constant.MemberType;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
