@@ -23,9 +23,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public Member register(MemberRegisterDto requestDto) {
+    public MemberRegisterDto.Response register(MemberRegisterDto.Request requestDto) {
         memberValidator.duplicateEmail(requestDto.getEmail());
         final Member initMember = requestDto.toEntity(passwordEncoder.encode(requestDto.getPassword()));
-        return memberStore.store(initMember);
+        return MemberRegisterDto.Response.of(memberStore.store(initMember));
     }
 }

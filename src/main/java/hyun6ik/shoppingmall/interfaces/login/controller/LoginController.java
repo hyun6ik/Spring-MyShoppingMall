@@ -29,7 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("memberRegisterDto") MemberRegisterDto requestDto, BindingResult bindingResult) {
+    public String register(@Valid @ModelAttribute("memberRegisterDto") MemberRegisterDto.Request requestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "login/registerform";
         }
