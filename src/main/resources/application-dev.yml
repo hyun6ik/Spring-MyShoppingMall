@@ -1,0 +1,17 @@
+spring:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        format_sql : true # sql 예쁘게 출력
+        default_batch_fetch_size: 1000
+
+    show-sql: true  # sql 출력
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${{secrets.RDS_URL}}
+    username: admin
+    password: ${{secrets.RDS_PASSWORD}}
