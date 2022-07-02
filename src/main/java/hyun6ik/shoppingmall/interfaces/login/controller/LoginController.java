@@ -24,7 +24,7 @@ public class LoginController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("memberRegisterDto", new MemberRegisterDto());
+        model.addAttribute("memberRegisterDto", new MemberRegisterDto.Request());
         return "login/registerform";
     }
 
