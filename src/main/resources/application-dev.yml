@@ -1,0 +1,22 @@
+spring:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        format_sql : true # sql 예쁘게 출력
+        default_batch_fetch_size: 1000
+
+    show-sql: true  # sql 출력
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(AuXOMALS2C0CFTWGAhCTzk6C6U9GJFWTHyG6HSSWmRV7ATtujgFiXCW23eEySO0Wf/i09lq8635/xTsUebjqGAgmAT/2pLCimnZ9Gcfqj0pDCvAXO61t5BmP6JU+zzRl)
+    username: admin
+    password: ENC(hPr6tCybA1ZZD9dmEvGUGhZkqiiXAGfH)
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndTripleDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
