@@ -1,6 +1,6 @@
 package hyun6ik.shoppingmall.global.config.web;
 
-import hyun6ik.shoppingmall.global.argumentResolver.AuthMemberArgumentResolver;
+import hyun6ik.shoppingmall.global.argumentResolver.MemberIdArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-    private final AuthMemberArgumentResolver authMemberArgumentResolver;
+    private final MemberIdArgumentResolver authMemberArgumentResolver;
 
     @Value("${file.upload.path}")
     private String uploadPath;
