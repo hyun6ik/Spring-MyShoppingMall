@@ -23,6 +23,7 @@ public class DeliveryQueryRepository {
     public List<DeliveryDto> findDeliveryDtos(Long memberId) {
         return queryFactory
                 .select(new QDeliveryDto(
+                      delivery.id,
                       delivery.deliveryFee,
                       delivery.deliveryName
                 ))

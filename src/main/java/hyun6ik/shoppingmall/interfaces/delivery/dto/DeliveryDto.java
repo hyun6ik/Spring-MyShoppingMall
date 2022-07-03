@@ -8,11 +8,13 @@ import lombok.Setter;
 @Setter
 public class DeliveryDto {
 
+    private Long deliveryId;
     private Integer deliveryFee;
     private String deliveryName;
 
     @QueryProjection
-    public DeliveryDto(Integer deliveryFee, String deliveryName) {
+    public DeliveryDto(Long deliveryId, Integer deliveryFee, String deliveryName) {
+        this.deliveryId = deliveryId;
         this.deliveryFee = deliveryFee;
         this.deliveryName = deliveryName;
     }
