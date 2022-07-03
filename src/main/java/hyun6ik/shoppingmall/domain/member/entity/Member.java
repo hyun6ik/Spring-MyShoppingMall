@@ -3,6 +3,7 @@ package hyun6ik.shoppingmall.domain.member.entity;
 import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.member.constant.MemberRole;
 import hyun6ik.shoppingmall.domain.member.constant.MemberType;
+import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseTimeEntity {
+
+    private static final String PREFIX_MEMBER = "member_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +34,7 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false, length = 20)
     private MemberRole role;
 
-    @Column(length = 250)
-    private String refreshToken;
-    private LocalDateTime tokenExpirationTime;
+    private String memberToken;
 
 
     @Builder
@@ -43,8 +44,7 @@ public class Member extends BaseTimeEntity {
         this.type = MemberType.GENERAL;
         this.password = password;
         this.role = role;
-        this.refreshToken = null;
-        this.tokenExpirationTime = null;
+        this.memberToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MEMBER);
     }
 
 }
