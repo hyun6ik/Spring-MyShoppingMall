@@ -40,7 +40,9 @@ public class Item extends BaseTimeEntity {
 
     private Long memberId;
 
-    public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId) {
+    private Long deliveryId;
+
+    public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId, Long deliveryId) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
@@ -48,6 +50,7 @@ public class Item extends BaseTimeEntity {
         this.itemSellStatus = itemSellStatus;
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ITEM);
         this.memberId = memberId;
+        this.deliveryId = deliveryId;
     }
 
     public void update(Item updateInitItem) {

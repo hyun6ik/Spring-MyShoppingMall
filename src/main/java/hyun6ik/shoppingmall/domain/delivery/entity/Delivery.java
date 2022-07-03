@@ -2,6 +2,7 @@ package hyun6ik.shoppingmall.domain.delivery.entity;
 
 import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.member.entity.Member;
+import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,8 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Delivery extends BaseTimeEntity {
 
+    private static final String PREFIX_DELIVERY = "delivery_";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +25,14 @@ public class Delivery extends BaseTimeEntity {
     @Column(length = 100)
     private String deliveryName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    private Long memberId;
+
+    private String deliveryToken;
+
+    public Delivery(Integer deliveryFee, String deliveryName, Long memberId) {
+        this.deliveryFee = deliveryFee;
+        this.deliveryName = deliveryName;
+        this.memberId = memberId;
+        this.deliveryToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_DELIVERY);
+    }
 }
