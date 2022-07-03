@@ -14,8 +14,6 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Delivery extends BaseTimeEntity {
 
-    private static final String PREFIX_DELIVERY = "delivery_";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,12 +25,9 @@ public class Delivery extends BaseTimeEntity {
 
     private Long memberId;
 
-    private String deliveryToken;
-
     public Delivery(Integer deliveryFee, String deliveryName, Long memberId) {
         this.deliveryFee = deliveryFee;
         this.deliveryName = deliveryName;
         this.memberId = memberId;
-        this.deliveryToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_DELIVERY);
     }
 }
