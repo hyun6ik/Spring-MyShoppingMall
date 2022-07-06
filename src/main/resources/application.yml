@@ -33,6 +33,13 @@ logging:
   level:
     org.hibernate.type: trace # sql binding 값 출력
 
+cloud:
+  aws:
+    credentials:
+      accessKey: ENC(FAtaAobSR9dODKmmnq/jQYNoh/WdfX0Z5FPAxvlw1bk=)
+      secretKey: ENC(fsCRK1FIN/yuhm/UAB5NGaXgJnKpzbEc8gP+0pmNcFvg1+v0qjotTLqDqjNY9nprZdsn4tLqthY=)
+
 file:
   upload:
     path: D:/Spring/shoppingmall/uploadImage/  # 윈도우파일 경로 예시 : C:/shop/
+
