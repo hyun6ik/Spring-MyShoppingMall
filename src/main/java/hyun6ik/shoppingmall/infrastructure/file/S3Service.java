@@ -14,8 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,26 +25,29 @@ public class S3Service {
 
     private final AmazonS3 amazonS3;
 
-    public List<String> uploadImage(List<MultipartFile> multipartFile) {
-        List<String> fileNameList = new ArrayList<>();
+    public UploadFile uploadImage(MultipartFile file) {
+        if(file.isEmpty()) {
+            return null;
+        }
 
-        multipartFile.forEach(file -> {
-            String fileName = createFileName(file.getOriginalFilename());
-            ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentLength(file.getSize());
-            objectMetadata.setContentType(file.getContentType());
+        final String originalFilename = file.getOriginalFilename();
+        String fileName = createFileName(originalFilename);
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(file.getSize());
+        objectMetadata.setContentType(file.getContentType());
 
-            try(InputStream inputStream = file.getInputStream()) {
-                amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-                        .withCannedAcl(CannedAccessControlList.PublicRead));
-            } catch(IOException e) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드에 실패했습니다.");
-            }
+        try(InputStream inputStream = file.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+            final String imageUrl = getFileUrl(fileName);
+            return new UploadFile(originalFilename, fileName, imageUrl);
+        } catch(IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드에 실패했습니다.");
+        }
+    }
 
-            fileNameList.add(fileName);
-        });
-
-        return fileNameList;
+    private String getFileUrl(String fileName) {
+        return amazonS3.getUrl(bucket, fileName).toString();
     }
 
     public void deleteImage(String fileName) {

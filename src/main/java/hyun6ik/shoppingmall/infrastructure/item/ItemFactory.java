@@ -2,29 +2,32 @@ package hyun6ik.shoppingmall.infrastructure.item;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
-import hyun6ik.shoppingmall.infrastructure.file.FileService;
+import hyun6ik.shoppingmall.infrastructure.file.S3Service;
+import hyun6ik.shoppingmall.infrastructure.file.UploadFile;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ItemFactory {
 
     private static final int IMAGE_MAX_SIZE = 5;
-    private final FileService fileService;
 
-    public List<ItemImage> createItemImages(Item item, List<MultipartFile> imageFiles) throws IOException {
+    private final S3Service s3Service;
+
+    public List<ItemImage> createItemImages(Item item, List<MultipartFile> imageFiles) {
 
         List<ItemImage> itemImages = new ArrayList<>();
 
         for (int i = 0; i < IMAGE_MAX_SIZE; i++) {
-            final var uploadFile = fileService.storeFile(imageFiles.get(i));
+            final UploadFile uploadFile = s3Service.uploadImage(imageFiles.get(i));
             if (RepImage(i)) {
                 itemImages.add(ItemImage.builder()
                         .item(item)

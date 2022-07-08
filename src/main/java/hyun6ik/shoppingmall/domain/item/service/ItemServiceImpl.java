@@ -8,12 +8,13 @@ import hyun6ik.shoppingmall.infrastructure.item.ItemReader;
 import hyun6ik.shoppingmall.infrastructure.item.ItemStore;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.InsertItemDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -26,7 +27,8 @@ public class ItemServiceImpl implements ItemService{
 
 
     @Override
-    public InsertItemDto.Response createItem(InsertItemDto.Request request, Long memberId) throws IOException {
+    @Transactional
+    public InsertItemDto.Response createItem(InsertItemDto.Request request, Long memberId) {
         final Item initItem = itemDtoMapper.toEntity(request, memberId);
         final List<ItemImage> initItemImages = itemFactory.createItemImages(initItem, request.getItemImageFiles());
 
