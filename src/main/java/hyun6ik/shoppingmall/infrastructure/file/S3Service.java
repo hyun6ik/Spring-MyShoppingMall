@@ -1,6 +1,6 @@
 package hyun6ik.shoppingmall.infrastructure.file;
 
-import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -23,7 +23,7 @@ public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    private final AmazonS3 amazonS3;
+    private final AmazonS3Client amazonS3Client;
 
     public UploadFile uploadImage(MultipartFile file) {
         if(file.isEmpty()) {
@@ -37,7 +37,7 @@ public class S3Service {
         objectMetadata.setContentType(file.getContentType());
 
         try(InputStream inputStream = file.getInputStream()) {
-            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+            amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             final String imageUrl = getFileUrl(fileName);
             return new UploadFile(originalFilename, fileName, imageUrl);
@@ -47,11 +47,11 @@ public class S3Service {
     }
 
     private String getFileUrl(String fileName) {
-        return amazonS3.getUrl(bucket, fileName).toString();
+        return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
     public void deleteImage(String fileName) {
-        amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
     }
 
     private String createFileName(String fileName) {
