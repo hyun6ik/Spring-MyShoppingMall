@@ -7,8 +7,11 @@ import hyun6ik.shoppingmall.infrastructure.item.ItemFactory;
 import hyun6ik.shoppingmall.infrastructure.item.ItemReader;
 import hyun6ik.shoppingmall.infrastructure.item.ItemStore;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.InsertItemDto;
+import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,5 +39,11 @@ public class ItemServiceImpl implements ItemService{
         final List<ItemImage> itemImages = itemStore.store(initItemImages);
 
         return itemDtoMapper.of(item, itemImages);
+    }
+
+    @Override
+    public Page<MainItemDto> getMainItemsBy(String searchQuery, Pageable pageable) {
+        return itemReader.getMainItemsBy(searchQuery, pageable);
+
     }
 }

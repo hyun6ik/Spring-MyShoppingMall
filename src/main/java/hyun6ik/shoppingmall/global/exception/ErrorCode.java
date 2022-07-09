@@ -10,6 +10,8 @@ public enum ErrorCode {
     MISMATCHED_PASSWORD(401, "패스워드가 일치하지 않습니다."),
     LOGIN_ERROR(401, "아이디 또는 비밀번호를 확인해주세요"),
 
+    INVALID_ADMIN_ROLE(400,"관리자 계정이 아닙니다."),
+
     NOT_FOUND_DELIVERY(400, "배송 정보를 찾을 수 없습니다."),
     NOT_FOUND_ITEM(400,"해당 상품을 찾을 수 업습니다."),
     NOT_FOUND_ORDER(400,"해당 주문 내역을 찾을 수 없습니다."),
