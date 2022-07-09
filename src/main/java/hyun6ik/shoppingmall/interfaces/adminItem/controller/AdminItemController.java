@@ -2,6 +2,7 @@ package hyun6ik.shoppingmall.interfaces.adminItem.controller;
 
 import hyun6ik.shoppingmall.domain.delivery.service.DeliveryService;
 import hyun6ik.shoppingmall.domain.item.service.ItemService;
+import hyun6ik.shoppingmall.global.annotation.AdminUser;
 import hyun6ik.shoppingmall.global.annotation.MemberId;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.ValidException;
@@ -29,6 +30,7 @@ public class AdminItemController {
     private final ItemService itemService;
     private final DeliveryService deliveryService;
 
+    @AdminUser
     @GetMapping("/new")
     public String itemForm(Model model, @MemberId Long memberId) {
 
@@ -40,6 +42,7 @@ public class AdminItemController {
         return "adminitem/registeritemform";
     }
 
+    @AdminUser
     @PostMapping("/new")
     public String createItem(@Valid @ModelAttribute("insertItemDto") InsertItemDto.Request request, BindingResult bindingResult,
                              @MemberId Long memberId, RedirectAttributes redirectAttributes, Model model) throws IOException {
