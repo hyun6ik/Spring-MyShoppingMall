@@ -42,7 +42,7 @@ public class InsertItemDto {
     @RequiredArgsConstructor
     public static class Response {
 
-        private final Long itemId;
+        private Long itemId;
         private final String itemName;
         private final int price;
         private final int stockNumber;

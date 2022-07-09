@@ -1,8 +1,12 @@
 package hyun6ik.shoppingmall.infrastructure.item.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
+import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
+import hyun6ik.shoppingmall.interfaces.item.dto.QItemDtlDto;
+import hyun6ik.shoppingmall.interfaces.item.dto.QItemDtlDto_ItemImageDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.QMainItemDto;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +17,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
+import static hyun6ik.shoppingmall.domain.delivery.entity.QDelivery.*;
 import static hyun6ik.shoppingmall.domain.item.entity.QItem.item;
 import static hyun6ik.shoppingmall.domain.item.entity.QItemImage.itemImage;
 
@@ -55,5 +61,36 @@ public class ItemQueryRepository {
                 .size();
 
         return new PageImpl<>(content, pageable, size);
+    }
+
+    public Optional<ItemDtlDto> findItemDtlDtoBy(Long itemId) {
+        return Optional.ofNullable(queryFactory
+                .select(new QItemDtlDto(
+                        item.id.as("itemId"),
+                        item.itemName.as("itemName"),
+                        item.price.as("price"),
+                        item.itemDetail.as("itemDetail"),
+                        item.stockNumber.as("stockNumber"),
+                        item.itemSellStatus.as("itemSellStatus"),
+                        JPAExpressions.select(delivery.deliveryFee)
+                                .from(delivery)
+                                .where(delivery.id.eq(JPAExpressions.select(item.deliveryId)
+                                        .from(item)
+                                        .where(item.id.eq(itemId))))
+                ))
+                .from(item)
+                .where(item.id.eq(itemId))
+                .fetchOne());
+    }
+
+    public List<ItemDtlDto.ItemImageDto> findItemImageDtosBy(Long itemId) {
+        return queryFactory
+                .select(new QItemDtlDto_ItemImageDto(
+                        itemImage.imageUrl
+                ))
+                .from(itemImage)
+                .where(itemImage.item.id.eq(itemId), itemImage.imageName.isNotNull())
+                .orderBy(itemImage.id.asc())
+                .fetch();
     }
 }

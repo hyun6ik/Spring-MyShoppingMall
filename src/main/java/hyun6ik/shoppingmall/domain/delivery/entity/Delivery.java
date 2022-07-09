@@ -1,8 +1,6 @@
 package hyun6ik.shoppingmall.domain.delivery.entity;
 
 import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
-import hyun6ik.shoppingmall.domain.member.entity.Member;
-import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

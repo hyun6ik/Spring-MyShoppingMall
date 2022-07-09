@@ -7,6 +7,7 @@ import hyun6ik.shoppingmall.infrastructure.item.ItemFactory;
 import hyun6ik.shoppingmall.infrastructure.item.ItemReader;
 import hyun6ik.shoppingmall.infrastructure.item.ItemStore;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.InsertItemDto;
+import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,5 +46,13 @@ public class ItemServiceImpl implements ItemService{
     public Page<MainItemDto> getMainItemsBy(String searchQuery, Pageable pageable) {
         return itemReader.getMainItemsBy(searchQuery, pageable);
 
+    }
+
+    @Override
+    public ItemDtlDto getItemDtlBy(Long itemId) {
+        final ItemDtlDto itemDtlDto = itemReader.getItemDtlDtoBy(itemId);
+        final List<ItemDtlDto.ItemImageDto> itemImagesDtos = itemReader.getItemImageDtosBy(itemId);
+        itemDtlDto.addItemImageDtos(itemImagesDtos);
+        return itemDtlDto;
     }
 }
