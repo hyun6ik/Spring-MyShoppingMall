@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
     properties:
       hibernate:
@@ -29,6 +29,17 @@ spring:
   messages:
     basename: messages, errors
 
+  profiles:
+    active: default
+    include:
+      - aws
+
+
 logging:
   level:
     org.hibernate.type: trace # sql binding 값 출력
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
+

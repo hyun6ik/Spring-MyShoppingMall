@@ -1,6 +1,8 @@
 package hyun6ik.shoppingmall.domain.member.service;
 
+import hyun6ik.shoppingmall.global.config.aws.AwsS3Config;
 import hyun6ik.shoppingmall.global.exception.LoginException;
+import hyun6ik.shoppingmall.infrastructure.file.S3Service;
 import hyun6ik.shoppingmall.infrastructure.member.MemberReader;
 import hyun6ik.shoppingmall.infrastructure.member.MemberStore;
 import hyun6ik.shoppingmall.infrastructure.member.MemberValidator;

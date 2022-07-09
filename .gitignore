@@ -37,3 +37,6 @@ out/
 .vscode/
 
 /docker-compose/.env
+
+src/main/resources/application-aws.yml
+src/test/resources/application-aws.yml
