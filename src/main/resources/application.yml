@@ -28,17 +28,17 @@ spring:
 
   messages:
     basename: messages, errors
-  profiles:
-    include: aws
 
+  profiles:
+    include:
+      - aws
 
 
 logging:
   level:
     org.hibernate.type: trace # sql binding 값 출력
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
 
-
-jasypt:
-  encryptor:
-    algorithm: PBEWithMD5AndTripleDES
-    iv-generator-classname: org.jasypt.iv.NoIvGenerator
