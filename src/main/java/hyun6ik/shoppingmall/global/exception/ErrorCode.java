@@ -14,6 +14,7 @@ public enum ErrorCode {
 
     NOT_FOUND_DELIVERY(400, "배송 정보를 찾을 수 없습니다."),
     NOT_FOUND_ITEM(400,"해당 상품을 찾을 수 업습니다."),
+    NOT_FOUND_ITEM_IMAGE(400,"해당 상품의 이미지를 찾을 수 업습니다."),
     NOT_FOUND_ORDER(400,"해당 주문 내역을 찾을 수 없습니다."),
     NOT_FOUND_ORDER_ITEM(400,"해당 주문 내역의 상품을 찾을 수 없습니다."),
 

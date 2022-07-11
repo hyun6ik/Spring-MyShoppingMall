@@ -3,6 +3,7 @@ package hyun6ik.shoppingmall.infrastructure.item;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.NotFoundException;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemQueryRepository;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.UpdateItemDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -29,5 +31,19 @@ public class ItemReader {
 
     public List<ItemDtlDto.ItemImageDto> getItemImageDtosBy(Long itemId) {
         return itemQueryRepository.findItemImageDtosBy(itemId);
+    }
+
+    public UpdateItemDto getUpdateItemDtoBy(Long itemId, Long memberId) {
+        return itemQueryRepository.findUpdateItemDtoBy(itemId, memberId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM));
+    }
+
+    public List<UpdateItemDto.ItemImageDto> getUpdateItemImageDtosBy(Long itemId) {
+        final Optional<List<UpdateItemDto.ItemImageDto>> updateItemImageDtos = itemQueryRepository.findUpdateItemImageDtosBy(itemId);
+
+        if (updateItemImageDtos.isEmpty()) {
+            throw new NotFoundException(ErrorCode.NOT_FOUND_ITEM_IMAGE);
+        }
+        return updateItemImageDtos.get();
     }
 }

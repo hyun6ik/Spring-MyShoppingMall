@@ -4,6 +4,9 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.QUpdateItemDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.QUpdateItemDto_ItemImageDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.UpdateItemDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.QItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.QItemDtlDto_ItemImageDto;
@@ -92,5 +95,33 @@ public class ItemQueryRepository {
                 .where(itemImage.item.id.eq(itemId), itemImage.imageName.isNotNull())
                 .orderBy(itemImage.id.asc())
                 .fetch();
+    }
+
+    public Optional<UpdateItemDto> findUpdateItemDtoBy(Long itemId, Long memberId) {
+        return Optional.ofNullable(queryFactory
+                .select(new QUpdateItemDto(
+                        item.id,
+                        item.itemName,
+                        item.price,
+                        item.itemDetail,
+                        item.stockNumber,
+                        item.itemSellStatus,
+                        item.deliveryId
+                ))
+                .from(item)
+                .where(item.id.eq(itemId), item.memberId.eq(memberId))
+                .fetchOne());
+    }
+
+    public Optional<List<UpdateItemDto.ItemImageDto>>  findUpdateItemImageDtosBy(Long itemId) {
+        return Optional.ofNullable(queryFactory
+                .select(new QUpdateItemDto_ItemImageDto(
+                        itemImage.id,
+                        itemImage.originalImageName
+                ))
+                .from(itemImage)
+                .innerJoin(itemImage.item, item)
+                .where(itemImage.item.id.eq(itemId))
+                .fetch());
     }
 }

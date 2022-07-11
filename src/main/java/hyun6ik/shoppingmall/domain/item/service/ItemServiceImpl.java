@@ -7,6 +7,7 @@ import hyun6ik.shoppingmall.infrastructure.item.ItemFactory;
 import hyun6ik.shoppingmall.infrastructure.item.ItemReader;
 import hyun6ik.shoppingmall.infrastructure.item.ItemStore;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.InsertItemDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.UpdateItemDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
@@ -54,5 +55,13 @@ public class ItemServiceImpl implements ItemService{
         final List<ItemDtlDto.ItemImageDto> itemImagesDtos = itemReader.getItemImageDtosBy(itemId);
         itemDtlDto.addItemImageDtos(itemImagesDtos);
         return itemDtlDto;
+    }
+
+    @Override
+    public UpdateItemDto getUpdateItemDtoBy(Long itemId, Long memberId) {
+        final UpdateItemDto updateItemDto = itemReader.getUpdateItemDtoBy(itemId, memberId);
+        final List<UpdateItemDto.ItemImageDto> updateItemImageDtos = itemReader.getUpdateItemImageDtosBy(itemId);
+        updateItemDto.addItemImagesDtos(updateItemImageDtos);
+        return updateItemDto;
     }
 }

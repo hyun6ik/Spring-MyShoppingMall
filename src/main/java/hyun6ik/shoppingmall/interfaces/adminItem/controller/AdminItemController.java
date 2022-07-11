@@ -7,15 +7,13 @@ import hyun6ik.shoppingmall.global.annotation.MemberId;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.ValidException;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.InsertItemDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.UpdateItemDto;
 import hyun6ik.shoppingmall.interfaces.delivery.dto.DeliveryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -68,4 +66,20 @@ public class AdminItemController {
 
         return "redirect:/admin/items/{itemId}";
     }
+
+    @AdminUser
+    @GetMapping("/{itemId}")
+    public String itemEdit(@PathVariable Long itemId, Model model, @MemberId Long memberId) {
+
+        final List<DeliveryDto> deliveryDtos = deliveryService.getDeliveryDtosBy(memberId);
+        final UpdateItemDto updateItemDto = itemService.getUpdateItemDtoBy(itemId, memberId);
+
+        model.addAttribute("deliveryDtos", deliveryDtos);
+        model.addAttribute("updateItemDto", updateItemDto);
+
+
+        return "adminitem/updateitemform";
+    }
+
+    
 }
