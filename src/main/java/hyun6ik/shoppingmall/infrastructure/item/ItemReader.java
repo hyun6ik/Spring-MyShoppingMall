@@ -1,9 +1,14 @@
 package hyun6ik.shoppingmall.infrastructure.item;
 
+import hyun6ik.shoppingmall.domain.item.entity.Item;
+import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.NotFoundException;
+import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemQueryRepository;
-import hyun6ik.shoppingmall.interfaces.adminItem.dto.UpdateItemDto;
+import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemImageDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +24,8 @@ import java.util.Optional;
 public class ItemReader {
 
     private final ItemQueryRepository itemQueryRepository;
+    private final ItemRepository itemRepository;
+    private final ItemImageRepository itemImageRepository;
 
     public Page<MainItemDto> getMainItemsBy(String searchQuery, Pageable pageable) {
         return itemQueryRepository.findMainItemsBySearchOptionWithPaging(searchQuery, pageable);
@@ -33,17 +40,27 @@ public class ItemReader {
         return itemQueryRepository.findItemImageDtosBy(itemId);
     }
 
-    public UpdateItemDto getUpdateItemDtoBy(Long itemId, Long memberId) {
+    public ItemRequestDto.Update getUpdateItemDtoBy(Long itemId, Long memberId) {
         return itemQueryRepository.findUpdateItemDtoBy(itemId, memberId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM));
     }
 
-    public List<UpdateItemDto.ItemImageDto> getUpdateItemImageDtosBy(Long itemId) {
-        final Optional<List<UpdateItemDto.ItemImageDto>> updateItemImageDtos = itemQueryRepository.findUpdateItemImageDtosBy(itemId);
+    public List<ItemImageDto> getUpdateItemImageDtosBy(Long itemId) {
+        final Optional<List<ItemImageDto>> updateItemImageDtos = itemQueryRepository.findUpdateItemImageDtosBy(itemId);
 
         if (updateItemImageDtos.isEmpty()) {
             throw new NotFoundException(ErrorCode.NOT_FOUND_ITEM_IMAGE);
         }
         return updateItemImageDtos.get();
+    }
+
+    public Item getItemBy(Long itemId, Long memberId) {
+        return itemRepository.findByIdAndMemberId(itemId, memberId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM));
+    }
+
+    public List<ItemImage> getItemImagesBy(Long itemId) {
+        return itemImageRepository.findAllByItemId(itemId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM_IMAGE));
     }
 }

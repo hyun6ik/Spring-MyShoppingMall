@@ -6,8 +6,9 @@ import hyun6ik.shoppingmall.infrastructure.item.ItemDtoMapper;
 import hyun6ik.shoppingmall.infrastructure.item.ItemFactory;
 import hyun6ik.shoppingmall.infrastructure.item.ItemReader;
 import hyun6ik.shoppingmall.infrastructure.item.ItemStore;
-import hyun6ik.shoppingmall.interfaces.adminItem.dto.InsertItemDto;
-import hyun6ik.shoppingmall.interfaces.adminItem.dto.UpdateItemDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemResponseDto;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemImageDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     @Transactional
-    public InsertItemDto.Response createItem(InsertItemDto.Request request, Long memberId) {
+    public ItemResponseDto createItem(ItemRequestDto.Insert request, Long memberId) {
         final Item initItem = itemDtoMapper.toEntity(request, memberId);
         final List<ItemImage> initItemImages = itemFactory.createItemImages(initItem, request.getItemImageFiles());
 
@@ -58,10 +59,24 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public UpdateItemDto getUpdateItemDtoBy(Long itemId, Long memberId) {
-        final UpdateItemDto updateItemDto = itemReader.getUpdateItemDtoBy(itemId, memberId);
-        final List<UpdateItemDto.ItemImageDto> updateItemImageDtos = itemReader.getUpdateItemImageDtosBy(itemId);
-        updateItemDto.addItemImagesDtos(updateItemImageDtos);
+    public ItemRequestDto.Update getUpdateItemDtoBy(Long itemId, Long memberId) {
+        final ItemRequestDto.Update updateItemDto = itemReader.getUpdateItemDtoBy(itemId, memberId);
+        final List<ItemImageDto> updateItemImageDtos = itemReader.getUpdateItemImageDtosBy(itemId);
+        updateItemDto.addItemImageDtos(updateItemImageDtos);
         return updateItemDto;
+    }
+
+    @Override
+    @Transactional
+    public ItemResponseDto updateItem(Long itemId, Long memberId, ItemRequestDto.Update request) {
+        final Item item = itemReader.getItemBy(itemId, memberId);
+        final List<ItemImage> itemImages = itemReader.getItemImagesBy(itemId);
+
+        final Item updateItem = itemDtoMapper.toEntity(request, memberId);
+        item.update(updateItem);
+
+        itemFactory.updateItemImages(request, itemImages);
+
+        return itemDtoMapper.of(item, itemImages);
     }
 }

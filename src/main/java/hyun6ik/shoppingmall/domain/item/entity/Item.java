@@ -59,6 +59,8 @@ public class Item extends BaseTimeEntity {
         this.stockNumber = updateInitItem.getStockNumber();
         this.itemDetail = updateInitItem.getItemDetail();
         this.itemSellStatus = updateInitItem.getItemSellStatus();
+        this.memberId = updateInitItem.getMemberId();
+        this.deliveryId = updateInitItem.getDeliveryId();
     }
 
     public void decreaseStock(int count) {
