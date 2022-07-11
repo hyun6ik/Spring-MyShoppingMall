@@ -4,6 +4,7 @@ import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
 import hyun6ik.shoppingmall.infrastructure.file.S3Service;
 import hyun6ik.shoppingmall.infrastructure.file.UploadFile;
+import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -63,5 +64,51 @@ public class ItemFactory {
 
     private boolean notUploadImage(List<MultipartFile> imageFiles, int i) {
         return StringUtils.isBlank(imageFiles.get(i).getOriginalFilename());
+    }
+
+    public void updateItemImages(ItemRequestDto.Update request, List<ItemImage> itemImages) {
+        for (int i = 0; i < request.getItemImageFiles().size(); i++) {
+            this.updateItemImage(itemImages.get(i), request.getItemImageFiles().get(i), request.getOriginalImageNames().get(i));
+        }
+    }
+
+    public void updateItemImage(ItemImage itemImage, MultipartFile imageFile, String existImage){
+        if (unModifiedImage(itemImage, imageFile, existImage)) {
+            return;
+        }
+
+        if (alreadyNullImage(itemImage, imageFile, existImage)) {
+            return;
+        }
+
+        if (deletedImage(itemImage, imageFile)) {
+            s3Service.deleteImage(itemImage.getImageName());
+            itemImage.clear();
+            return;
+        }
+
+        if (modifiedImage(itemImage)) {
+            s3Service.deleteImage(itemImage.getImageName());
+        }
+
+        final UploadFile uploadFile = s3Service.uploadImage(imageFile);
+        itemImage.update(uploadFile);
+
+    }
+
+    private boolean alreadyNullImage(ItemImage itemImage, MultipartFile imageFile, String existImage) {
+        return itemImage.getImageUrl() == null && imageFile.isEmpty() && existImage.isBlank();
+    }
+
+    private boolean deletedImage(ItemImage itemImage, MultipartFile imageFile) {
+        return imageFile.isEmpty() && !itemImage.getImageUrl().isBlank();
+    }
+
+    private boolean modifiedImage(ItemImage itemImage) {
+        return !StringUtils.isEmpty(itemImage.getImageName());
+    }
+
+    private boolean unModifiedImage(ItemImage itemImage, MultipartFile imageFile, String existImage) {
+        return imageFile.isEmpty() && itemImage.getImageUrl() != null && !existImage.isBlank();
     }
 }
