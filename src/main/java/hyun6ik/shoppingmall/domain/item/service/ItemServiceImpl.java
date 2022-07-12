@@ -79,4 +79,9 @@ public class ItemServiceImpl implements ItemService{
 
         return itemDtoMapper.of(item, itemImages);
     }
+
+    @Override
+    public Item getItemBy(Long itemId) {
+        return itemReader.getItemBy(itemId);
+    }
 }

@@ -63,4 +63,9 @@ public class ItemReader {
         return itemImageRepository.findAllByItemId(itemId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM_IMAGE));
     }
+
+    public Item getItemBy(Long itemId) {
+        return itemRepository.findById(itemId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM));
+    }
 }
