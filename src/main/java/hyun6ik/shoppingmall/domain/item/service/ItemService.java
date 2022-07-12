@@ -1,5 +1,6 @@
 package hyun6ik.shoppingmall.domain.item.service;
 
+import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemResponseDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
@@ -20,4 +21,6 @@ public interface ItemService {
     ItemRequestDto.Update getUpdateItemDtoBy(Long itemId, Long memberId);
 
     ItemResponseDto updateItem(Long itemId, Long memberId, ItemRequestDto.Update request);
+
+    Item getItemBy(Long itemId);
 }

@@ -33,10 +33,15 @@ public class Order extends BaseTimeEntity {
     private String orderToken;
 
     @Builder
-    public Order(OrderStatus orderStatus, LocalDateTime orderTime, Long memberId) {
-        this.orderStatus = orderStatus;
+    public Order(Long memberId, LocalDateTime orderTime) {
         this.orderTime = orderTime;
         this.memberId = memberId;
+        this.orderStatus = OrderStatus.ORDER;
         this.orderToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ORDER);
     }
+
+    public static Order createOrder(Long memberId, LocalDateTime orderTime) {
+        return new Order(memberId, orderTime);
+    }
+
 }
