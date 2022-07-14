@@ -45,4 +45,12 @@ public class OrderServiceImpl implements OrderService{
     public Page<OrderHistDto> getOrderHistDtosBy(Long memberId, Pageable pageable) {
         return orderReader.getOrderHistDtosBy(memberId, pageable);
     }
+
+    @Override
+    @Transactional
+    public OrderItem cancelOrder(Long orderId) {
+        final Order order = orderReader.getOrderBy(orderId);
+        order.cancelOrder();
+        return orderReader.getOrderItemBy(orderId);
+    }
 }
