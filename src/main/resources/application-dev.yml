@@ -15,8 +15,7 @@ spring:
     url: ENC(AuXOMALS2C0CFTWGAhCTzk6C6U9GJFWTHyG6HSSWmRV7ATtujgFiXCW23eEySO0Wf/i09lq8635/xTsUebjqGAgmAT/2pLCimnZ9Gcfqj0pDCvAXO61t5BmP6JU+zzRl)
     username: admin
     password: ENC(hPr6tCybA1ZZD9dmEvGUGhZkqiiXAGfH)
-  profiles:
-    active: dev
+
 
 
 jasypt:
