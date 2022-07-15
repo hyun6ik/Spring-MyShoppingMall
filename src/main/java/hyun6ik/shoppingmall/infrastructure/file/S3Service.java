@@ -31,10 +31,8 @@ public class S3Service {
         }
 
         final String originalFilename = file.getOriginalFilename();
-        String fileName = createFileName(originalFilename);
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentLength(file.getSize());
-        objectMetadata.setContentType(file.getContentType());
+        final String fileName = createFileName(originalFilename);
+        final ObjectMetadata objectMetadata = getObjectMetadata(file);
 
         try(InputStream inputStream = file.getInputStream()) {
             amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
@@ -44,6 +42,13 @@ public class S3Service {
         } catch(IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드에 실패했습니다.");
         }
+    }
+
+    private ObjectMetadata getObjectMetadata(MultipartFile file) {
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(file.getSize());
+        objectMetadata.setContentType(file.getContentType());
+        return objectMetadata;
     }
 
     private String getFileUrl(String fileName) {
