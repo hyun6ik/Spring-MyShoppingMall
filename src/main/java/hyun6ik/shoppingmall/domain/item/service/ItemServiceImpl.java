@@ -3,6 +3,7 @@ package hyun6ik.shoppingmall.domain.item.service;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
 import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
+import hyun6ik.shoppingmall.global.annotation.LogTrace;
 import hyun6ik.shoppingmall.infrastructure.item.ItemDtoMapper;
 import hyun6ik.shoppingmall.infrastructure.item.ItemFactory;
 import hyun6ik.shoppingmall.infrastructure.item.ItemReader;
@@ -46,9 +47,9 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    @LogTrace
     public Page<MainItemDto> getMainItemsBy(String searchQuery, Pageable pageable) {
         return itemReader.getMainItemsBy(searchQuery, pageable);
-
     }
 
     @Override
