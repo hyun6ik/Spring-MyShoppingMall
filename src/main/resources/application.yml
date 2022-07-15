@@ -30,7 +30,7 @@ spring:
     basename: messages, errors
 
   profiles:
-    active: default
+    active: local
     include:
       - aws
 
