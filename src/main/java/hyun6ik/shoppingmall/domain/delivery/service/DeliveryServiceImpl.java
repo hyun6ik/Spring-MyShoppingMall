@@ -1,6 +1,5 @@
 package hyun6ik.shoppingmall.domain.delivery.service;
 
-import hyun6ik.shoppingmall.domain.delivery.entity.Delivery;
 import hyun6ik.shoppingmall.infrastructure.delivery.DeliveryReader;
 import hyun6ik.shoppingmall.interfaces.delivery.dto.DeliveryDto;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +14,6 @@ import java.util.List;
 public class DeliveryServiceImpl implements DeliveryService{
 
     private final DeliveryReader deliveryReader;
-
-    @Override
-    public Delivery getDeliveryBy(Long deliveryId) {
-        return deliveryReader.getDeliveryBy(deliveryId);
-    }
 
     @Override
     public List<DeliveryDto> getDeliveryDtosBy(Long memberId) {

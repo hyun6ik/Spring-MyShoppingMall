@@ -1,8 +1,6 @@
 package hyun6ik.shoppingmall.global.argumentResolver;
 
-
 import hyun6ik.shoppingmall.domain.login.LoginMemberDetails;
-import hyun6ik.shoppingmall.domain.member.entity.Member;
 import hyun6ik.shoppingmall.global.annotation.MemberId;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +20,7 @@ public class MemberIdArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         final LoginMemberDetails loginMemberDetails = (LoginMemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return (loginMemberDetails.getMember() == null) ? null : loginMemberDetails.getMember().getId();
     }
