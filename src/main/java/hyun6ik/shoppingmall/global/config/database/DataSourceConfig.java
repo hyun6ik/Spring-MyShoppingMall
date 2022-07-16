@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+@Profile({"local","dev","prod"})
 @Configuration
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties(MasterDataSourceProperties.class)
