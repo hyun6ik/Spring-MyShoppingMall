@@ -1,20 +1,28 @@
 spring:
 
   jpa:
-    hibernate:
-      ddl-auto: create
-
     properties:
       hibernate:
-        format_sql : true # sql 예쁘게 출력
-        default_batch_fetch_size: 1000
+        show-sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    generate-ddl: true
 
     show-sql: true  # sql 출력
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(AuXOMALS2C0CFTWGAhCTzk6C6U9GJFWTHyG6HSSWmRV7ATtujgFiXCW23eEySO0Wf/i09lq8635/xTsUebjqGAgmAT/2pLCimnZ9Gcfqj0pDCvAXO61t5BmP6JU+zzRl)
-    username: admin
-    password: ENC(hPr6tCybA1ZZD9dmEvGUGhZkqiiXAGfH)
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: ENC(+TrP/OYjBLv+f3m6ypaWbxB/ouUbMOaM1EpcPO8H9WWIAmwvgjy+/SR9Ioi4343PDlI891VHRC/ypLWDZ1qIgVF2CCT7lvdqW81zAEvJI1jonzS7LAdy9Whuy5wuSZp3)
+      username: ENC(6PcrQrG1AR8L5Dw5kvxWkim8x+n8TPsf)
+      password: ENC(NVxGtNiGi4wzYpiHh9fSWDV8/Wzf9FEgugGDKSbF5/g=)
+      slave:
+        slave-1:
+          name: slave-1
+          url: ENC(bUyIz74bRyxE++V0HVkxIXgWuh31Sz36VsoCRsIEW9MB24anvRyyM0yC30A6pR6l4xlcKLaJkaXf1EZFimLMzZOPEBsDUTYR5mvrZl2A9ppC7Krs62uKfsbWeCKShBUg)
+          username: ENC(6PcrQrG1AR8L5Dw5kvxWkim8x+n8TPsf)
+          password: ENC(NVxGtNiGi4wzYpiHh9fSWDV8/Wzf9FEgugGDKSbF5/g=)
+          driver-class-name: org.mariadb.jdbc.Driver
 
 
 
