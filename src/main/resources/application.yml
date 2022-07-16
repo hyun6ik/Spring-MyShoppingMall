@@ -5,21 +5,31 @@ server:
 
 spring:
 
-  jpa:
-    hibernate:
-      ddl-auto: update
+  flyway:
+    enabled: true
 
+  jpa:
     properties:
       hibernate:
-        format_sql : true # sql 예쁘게 출력
-        default_batch_fetch_size: 1000
+        show-sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    generate-ddl: true
 
-    show-sql: true  # sql 출력
   datasource:
+    hikari:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mariadb://localhost:43306/shoppingmall?serverTimezone=UTC&characterEncoding=UTF-8
-      username: hyun6ik
-      password: hyun6ik-pass
+      url: jdbc:mariadb://localhost:43306/repldb?serverTimezone=UTC&characterEncoding=UTF-8
+      username: repldb
+      password: repl-pass
+      slave:
+        slave-1:
+          name: slave-1
+          url: jdbc:mariadb://localhost:53306/repldb?serverTimezone=UTC&characterEncoding=UTF-8
+          username: root
+          password: root-pass
+          driver-class-name: org.mariadb.jdbc.Driver
 
   servlet:
     multipart:

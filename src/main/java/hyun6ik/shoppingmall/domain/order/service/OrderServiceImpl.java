@@ -3,6 +3,7 @@ package hyun6ik.shoppingmall.domain.order.service;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.order.entity.Order;
 import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
+import hyun6ik.shoppingmall.global.annotation.LogTrace;
 import hyun6ik.shoppingmall.infrastructure.order.OrderDtoMapper;
 import hyun6ik.shoppingmall.infrastructure.order.OrderReader;
 import hyun6ik.shoppingmall.infrastructure.order.OrderStore;
@@ -42,6 +43,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    @LogTrace
     public Page<OrderHistDto> getOrderHistDtosBy(Long memberId, Pageable pageable) {
         return orderReader.getOrderHistDtosBy(memberId, pageable);
     }
