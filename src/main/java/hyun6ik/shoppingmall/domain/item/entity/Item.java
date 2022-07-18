@@ -4,10 +4,12 @@ import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 
 @Entity
 @Getter
@@ -42,7 +44,11 @@ public class Item extends BaseTimeEntity {
 
     private Long deliveryId;
 
-    public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId, Long deliveryId) {
+    @Embedded
+    private ItemImages itemImages;
+
+    @Builder
+    public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId, Long deliveryId, ItemImages itemImages) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
@@ -51,6 +57,15 @@ public class Item extends BaseTimeEntity {
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ITEM);
         this.memberId = memberId;
         this.deliveryId = deliveryId;
+        addItemImages(itemImages);
+    }
+
+    public void addItemImages(ItemImages itemImages) {
+        if (itemImages == null) {
+            return;
+        }
+        this.itemImages = itemImages;
+        itemImages.belongTo(this);
     }
 
     public void update(Item updateInitItem) {
@@ -61,6 +76,11 @@ public class Item extends BaseTimeEntity {
         this.itemSellStatus = updateInitItem.getItemSellStatus();
         this.memberId = updateInitItem.getMemberId();
         this.deliveryId = updateInitItem.getDeliveryId();
+    }
+
+    public void updateItemImages(ItemImages itemImages) {
+        this.itemImages.getItemImages().clear();
+        addItemImages(itemImages);
     }
 
     public void decreaseStock(int count) {
