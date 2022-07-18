@@ -53,3 +53,7 @@ logging:
         util:
           EC2MetadataUtils: ERROR
 
+elasticsearch:
+  host: 127.0.0.1
+  port: 9200
+

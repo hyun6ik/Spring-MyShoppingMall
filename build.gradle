@@ -66,6 +66,8 @@ dependencies {
     //flyway
     implementation 'org.flywaydb:flyway-core:6.4.2'
 
+    //elasticsearch
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 
 }
 

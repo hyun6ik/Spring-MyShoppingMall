@@ -30,3 +30,7 @@ jasypt:
   encryptor:
     algorithm: PBEWithMD5AndTripleDES
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+elasticsearch:
+  host: ENC(/zN564TDGf7tqc0pHS86fekwH+I+5N9K)
+  port: 9200
