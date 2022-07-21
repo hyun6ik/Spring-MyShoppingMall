@@ -20,13 +20,13 @@ spring:
   datasource:
     hikari:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mariadb://localhost:43306/repldb?serverTimezone=UTC&characterEncoding=UTF-8
-      username: repldb
-      password: repl-pass
+      url: jdbc:mariadb://localhost:43306/shopdb?serverTimezone=UTC&characterEncoding=UTF-8
+      username: replication
+      password: replication-pass
       slave:
         slave-1:
           name: slave-1
-          url: jdbc:mariadb://localhost:53306/repldb?serverTimezone=UTC&characterEncoding=UTF-8
+          url: jdbc:mariadb://localhost:53306/shopdb?serverTimezone=UTC&characterEncoding=UTF-8
           username: root
           password: root-pass
           driver-class-name: org.mariadb.jdbc.Driver
