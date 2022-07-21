@@ -34,12 +34,12 @@ public class ItemImage extends BaseTimeEntity {
     private Item item;
 
     @Builder
-    public ItemImage(String imageName, String imageUrl, String originalImageName, boolean isRepImage, Item item) {
+    public ItemImage(Item item, String imageName, String imageUrl, String originalImageName, boolean isRepImage) {
+        this.item = item;
         this.imageName = imageName;
         this.imageUrl = imageUrl;
         this.originalImageName = originalImageName;
         this.isRepImage = isRepImage;
-        this.item = item;
     }
 
     public static ItemImage of(Item item, UploadFile uploadFile, Boolean isRepImage) {

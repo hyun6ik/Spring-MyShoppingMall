@@ -4,6 +4,7 @@ import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.NotFoundException;
+import hyun6ik.shoppingmall.infrastructure.item.elasticsearch.ItemEsQueryRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemQueryRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
@@ -15,20 +16,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Component
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemReader {
 
     private final ItemQueryRepository itemQueryRepository;
     private final ItemRepository itemRepository;
     private final ItemImageRepository itemImageRepository;
+    private final ItemEsQueryRepository itemEsQueryRepository;
 
     public Page<MainItemDto> getMainItemsBy(String searchQuery, Pageable pageable) {
-        return itemQueryRepository.findMainItemsBySearchOptionWithPaging(searchQuery, pageable);
+        return itemEsQueryRepository.searchMainItemsBy(searchQuery, pageable);
     }
 
     public ItemDtlDto getItemDtlDtoBy(Long itemId) {

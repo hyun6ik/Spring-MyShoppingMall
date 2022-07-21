@@ -1,4 +1,6 @@
 spring:
+  flyway:
+    enabled: true
 
   jpa:
     properties:
@@ -13,16 +15,16 @@ spring:
   datasource:
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: ENC(+TrP/OYjBLv+f3m6ypaWbxB/ouUbMOaM1EpcPO8H9WWIAmwvgjy+/SR9Ioi4343PDlI891VHRC/ypLWDZ1qIgVF2CCT7lvdqW81zAEvJI1jonzS7LAdy9Whuy5wuSZp3)
-      username: ENC(6PcrQrG1AR8L5Dw5kvxWkim8x+n8TPsf)
-      password: ENC(NVxGtNiGi4wzYpiHh9fSWDV8/Wzf9FEgugGDKSbF5/g=)
+      url: ENC(Pb6vo/FQ8AA/hAHlLuHccGQ7ulMNZyNc/hT1LoOVtyJicxv0CyJMDdQpPaOHFj8+DXKZvqC9DGHwH+ambV4V3j5UFyH8ddkgK8VfanSAsrJyHKM2nu9xz38GLhOcJU1k2vtFBNJcLl1TahCj8M0LL6chYD4uqk+ud7K5oi22ASI=)
+      username: ENC(guBiz4Lq+Oki9Xd/DH/3iCtbwaNG0JqZ)
+      password: ENC(Vi1jn3LAtx6zij53o2Pi4EEw5VtqQluSKECqwvfopqE=)
       slave:
         slave-1:
           name: slave-1
-          url: ENC(bUyIz74bRyxE++V0HVkxIXgWuh31Sz36VsoCRsIEW9MB24anvRyyM0yC30A6pR6l4xlcKLaJkaXf1EZFimLMzZOPEBsDUTYR5mvrZl2A9ppC7Krs62uKfsbWeCKShBUg)
-          username: ENC(6PcrQrG1AR8L5Dw5kvxWkim8x+n8TPsf)
-          password: ENC(NVxGtNiGi4wzYpiHh9fSWDV8/Wzf9FEgugGDKSbF5/g=)
-          driver-class-name: org.mariadb.jdbc.Driver
+          url: ENC(55ZiFOv9mlU7CIocRSNLqlHbc+pgG6OVWuO4oNGbp3vhcn+4zb1k8c4w9kt0vaS7ZIpBexhJ3lBQXlAvhLnnK19h7X7pWcZ8H1cuvUgzHbheVasnz7P4bvIMWUlU5JXfCW2obWyGYd4gMAdqR0ygn1e3dMLb3xjcxBU1T2oGaF4=)
+          username: ENC(jielt3uXkdIpIX+/WaB2aXEqGa5rkhQ6)
+          password: ENC(0Q2K1TPduQu2FfUHtRRCI4WemCLixKbvE3wNlL6Ipuo=)
+          driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 
@@ -30,3 +32,7 @@ jasypt:
   encryptor:
     algorithm: PBEWithMD5AndTripleDES
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+elasticsearch:
+  host: ENC(/zN564TDGf7tqc0pHS86fekwH+I+5N9K)
+  port: 9200

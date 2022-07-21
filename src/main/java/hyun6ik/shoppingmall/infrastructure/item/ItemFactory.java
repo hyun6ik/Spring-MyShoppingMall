@@ -68,7 +68,7 @@ public class ItemFactory {
 
     public void updateItemImages(ItemRequestDto.Update request, List<ItemImage> itemImages) {
         for (int i = 0; i < request.getItemImageFiles().size(); i++) {
-            this.updateItemImage(itemImages.get(i), request.getItemImageFiles().get(i), request.getOriginalImageNames().get(i));
+            updateItemImage(itemImages.get(i), request.getItemImageFiles().get(i), request.getOriginalImageNames().get(i));
         }
     }
 
@@ -93,7 +93,6 @@ public class ItemFactory {
 
         final UploadFile uploadFile = s3Service.uploadImage(imageFile);
         itemImage.update(uploadFile);
-
     }
 
     private boolean alreadyNullImage(ItemImage itemImage, MultipartFile imageFile, String existImage) {

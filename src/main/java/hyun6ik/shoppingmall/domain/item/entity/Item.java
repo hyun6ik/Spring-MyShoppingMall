@@ -1,18 +1,21 @@
 package hyun6ik.shoppingmall.domain.item.entity;
 
-import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Document(indexName = "item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Item extends BaseTimeEntity {
+public class Item {
 
     private static final String PREFIX_ITEM = "item_";
 
@@ -42,6 +45,7 @@ public class Item extends BaseTimeEntity {
 
     private Long deliveryId;
 
+    @Builder
     public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId, Long deliveryId) {
         this.itemName = itemName;
         this.price = price;
@@ -49,6 +53,19 @@ public class Item extends BaseTimeEntity {
         this.itemDetail = itemDetail;
         this.itemSellStatus = itemSellStatus;
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ITEM);
+        this.memberId = memberId;
+        this.deliveryId = deliveryId;
+    }
+
+    @PersistenceConstructor
+    public Item(Long id, String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, String itemToken, Long memberId, Long deliveryId) {
+        this.id = id;
+        this.itemName = itemName;
+        this.price = price;
+        this.stockNumber = stockNumber;
+        this.itemDetail = itemDetail;
+        this.itemSellStatus = itemSellStatus;
+        this.itemToken = itemToken;
         this.memberId = memberId;
         this.deliveryId = deliveryId;
     }
