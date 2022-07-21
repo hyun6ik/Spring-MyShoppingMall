@@ -10,6 +10,7 @@ import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
+@Profile({"local","dev","prod"})
 @EnableElasticsearchRepositories(basePackageClasses = ItemEsRepository.class)
 @Configuration
 public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
