@@ -52,7 +52,12 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: ERROR
-
+    org:
+      springframework:
+        data:
+          elasticsearch:
+            client:
+              WIRE: TRACE
 elasticsearch:
   host: 127.0.0.1
   port: 9200

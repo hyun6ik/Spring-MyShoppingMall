@@ -6,11 +6,14 @@ import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Document(indexName = "item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item extends BaseTimeEntity {
 
@@ -49,6 +52,19 @@ public class Item extends BaseTimeEntity {
         this.itemDetail = itemDetail;
         this.itemSellStatus = itemSellStatus;
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ITEM);
+        this.memberId = memberId;
+        this.deliveryId = deliveryId;
+    }
+
+    @PersistenceConstructor
+    public Item(Long id, String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, String itemToken, Long memberId, Long deliveryId) {
+        this.id = id;
+        this.itemName = itemName;
+        this.price = price;
+        this.stockNumber = stockNumber;
+        this.itemDetail = itemDetail;
+        this.itemSellStatus = itemSellStatus;
+        this.itemToken = itemToken;
         this.memberId = memberId;
         this.deliveryId = deliveryId;
     }
