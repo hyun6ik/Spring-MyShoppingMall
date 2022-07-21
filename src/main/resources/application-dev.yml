@@ -13,16 +13,16 @@ spring:
   datasource:
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: ENC(+TrP/OYjBLv+f3m6ypaWbxB/ouUbMOaM1EpcPO8H9WWIAmwvgjy+/SR9Ioi4343PDlI891VHRC/ypLWDZ1qIgVF2CCT7lvdqW81zAEvJI1jonzS7LAdy9Whuy5wuSZp3)
-      username: ENC(6PcrQrG1AR8L5Dw5kvxWkim8x+n8TPsf)
-      password: ENC(NVxGtNiGi4wzYpiHh9fSWDV8/Wzf9FEgugGDKSbF5/g=)
+      url: ENC(77+AOmpXEF/ex64O39PoC68yo65iabkeBrCtTkveNSha5D9VZAxrVPDDWteGar2pMKFTKuYZC4hmn+bMj4nj/g7wGf6U+Xkn8Xqb09OR0OMIqD8Z2OQf5w==)
+      username: ENC(guBiz4Lq+Oki9Xd/DH/3iCtbwaNG0JqZ)
+      password: ENC(Vi1jn3LAtx6zij53o2Pi4EEw5VtqQluSKECqwvfopqE=)
       slave:
         slave-1:
           name: slave-1
-          url: ENC(bUyIz74bRyxE++V0HVkxIXgWuh31Sz36VsoCRsIEW9MB24anvRyyM0yC30A6pR6l4xlcKLaJkaXf1EZFimLMzZOPEBsDUTYR5mvrZl2A9ppC7Krs62uKfsbWeCKShBUg)
-          username: ENC(6PcrQrG1AR8L5Dw5kvxWkim8x+n8TPsf)
-          password: ENC(NVxGtNiGi4wzYpiHh9fSWDV8/Wzf9FEgugGDKSbF5/g=)
-          driver-class-name: org.mariadb.jdbc.Driver
+          url: ENC(hfmynX75g8Y5Gp6f0CaGvuNP7X7UnxXCLWiI1oEsCN/X6zS1nOCT8IjW2wbkKE/RV6hlNvyXI5XorcY4axZWADqZ4hmdpBubuspoAa4jLTP5duRQw3rwQA==)
+          username: ENC(OEItQBJ5CgZiCt0Qux/F3g==)
+          password: ENC(MCnhkCr0C5GpIDyf0FRwyf4PqWSLoBEr)
+          driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 
