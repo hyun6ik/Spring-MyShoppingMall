@@ -2,6 +2,9 @@ spring:
   profiles:
     active: test
 
+  flyway:
+    enabled: false
+
   datasource:
     hikari:
       driver-class-name: org.h2.Driver
@@ -39,5 +42,3 @@ elasticsearch:
   host: localhost
   port: 9200
 
-  flyway:
-    enabled: false
