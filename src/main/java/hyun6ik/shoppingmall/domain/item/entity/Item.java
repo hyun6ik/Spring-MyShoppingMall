@@ -1,9 +1,9 @@
 package hyun6ik.shoppingmall.domain.item.entity;
 
-import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Document(indexName = "item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Item extends BaseTimeEntity {
+public class Item {
 
     private static final String PREFIX_ITEM = "item_";
 
@@ -45,6 +45,7 @@ public class Item extends BaseTimeEntity {
 
     private Long deliveryId;
 
+    @Builder
     public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId, Long deliveryId) {
         this.itemName = itemName;
         this.price = price;

@@ -37,7 +37,7 @@ public class ItemServiceImpl implements ItemService{
     @Override
     @Transactional
     public ItemResponseDto createItem(ItemRequestDto.Insert request, Long memberId) {
-        final Item initItem = itemDtoMapper.toEntity(request, memberId);
+        final Item initItem = request.toEntity(memberId);
         final List<ItemImage> initItemImages = itemFactory.createItemImages(initItem, request.getItemImageFiles());
 
         final Item item = itemStore.store(initItem);
@@ -74,7 +74,7 @@ public class ItemServiceImpl implements ItemService{
         final Item item = itemReader.getItemBy(itemId, memberId);
         final List<ItemImage> itemImages = itemReader.getItemImagesBy(itemId);
 
-        final Item updateItem = itemDtoMapper.toEntity(request, memberId);
+        final Item updateItem = request.toEntity(memberId);
         item.update(updateItem);
 
         itemFactory.updateItemImages(request, itemImages);

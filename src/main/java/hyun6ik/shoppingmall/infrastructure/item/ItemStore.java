@@ -7,10 +7,12 @@ import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
+@Transactional
 @RequiredArgsConstructor
 public class ItemStore {
 

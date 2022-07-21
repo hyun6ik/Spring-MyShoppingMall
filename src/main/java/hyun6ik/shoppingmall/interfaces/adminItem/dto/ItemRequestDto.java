@@ -2,6 +2,7 @@ package hyun6ik.shoppingmall.interfaces.adminItem.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
+import hyun6ik.shoppingmall.domain.item.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +34,18 @@ public class ItemRequestDto {
         private Long deliveryId;
 
         private List<MultipartFile> itemImageFiles;
+
+        public Item toEntity(Long memberId) {
+            return Item.builder()
+                    .itemName(itemName)
+                    .price(price)
+                    .itemDetail(itemDetail)
+                    .stockNumber(stockNumber)
+                    .itemSellStatus(itemSellStatus)
+                    .deliveryId(deliveryId)
+                    .memberId(memberId)
+                    .build();
+        }
     }
 
     @Getter @Setter
@@ -78,5 +91,18 @@ public class ItemRequestDto {
         public void addItemImageDtos(List<ItemImageDto> itemImageDtos) {
             this.itemImageDtos = itemImageDtos;
         }
+
+        public Item toEntity(Long memberId) {
+            return Item.builder()
+                    .itemName(itemName)
+                    .price(price)
+                    .itemDetail(itemDetail)
+                    .stockNumber(stockNumber)
+                    .itemSellStatus(itemSellStatus)
+                    .deliveryId(deliveryId)
+                    .memberId(memberId)
+                    .build();
+        }
+
     }
 }
