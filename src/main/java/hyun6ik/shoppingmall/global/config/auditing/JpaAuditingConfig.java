@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@Profile({"local","dev","prod"})
 @EnableJpaRepositories(basePackageClasses = {DeliveryRepository.class, MemberRepository.class, ItemRepository.class,
         ItemImageRepository.class, OrderRepository.class})
 @EnableJpaAuditing

@@ -9,6 +9,7 @@ import hyun6ik.shoppingmall.infrastructure.order.repository.OrderRepository;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
@@ -16,6 +17,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+@Profile("test")
 @EnableElasticsearchRepositories(basePackageClasses = ItemEsRepository.class)
 @EnableJpaRepositories(basePackageClasses = {DeliveryRepository.class, MemberRepository.class, ItemRepository.class,
         ItemImageRepository.class, OrderRepository.class})
