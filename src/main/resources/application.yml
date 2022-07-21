@@ -6,7 +6,7 @@ server:
 spring:
 
   flyway:
-    enabled: true
+    enabled: false
 
   jpa:
     properties:
