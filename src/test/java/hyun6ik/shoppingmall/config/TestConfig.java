@@ -1,28 +1,18 @@
 package hyun6ik.shoppingmall.config;
 
-import hyun6ik.shoppingmall.infrastructure.delivery.repository.DeliveryRepository;
 import hyun6ik.shoppingmall.infrastructure.item.elasticsearch.ItemEsRepository;
-import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
-import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
-import hyun6ik.shoppingmall.infrastructure.member.repository.MemberRepository;
-import hyun6ik.shoppingmall.infrastructure.order.repository.OrderRepository;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Profile("test")
 @EnableElasticsearchRepositories(basePackageClasses = ItemEsRepository.class)
-@EnableJpaRepositories(basePackageClasses = {DeliveryRepository.class, MemberRepository.class, ItemRepository.class,
-        ItemImageRepository.class, OrderRepository.class})
-@EnableJpaAuditing
-@TestConfiguration
+@Configuration
 public class TestConfig extends AbstractElasticsearchConfiguration {
 
     @Value("${elasticsearch.host}")
