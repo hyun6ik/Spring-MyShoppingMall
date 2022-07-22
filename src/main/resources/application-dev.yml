@@ -34,5 +34,5 @@ jasypt:
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
 
 elasticsearch:
-  host: ENC(/zN564TDGf7tqc0pHS86fekwH+I+5N9K)
+  host: 15.164.251.146
   port: 9200
