@@ -1,0 +1,50 @@
+spring:
+  flyway:
+    enabled: false
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialects: org.hibernate.dialect.MySQL57Dialect
+        format_sql: true
+        default_batch_fetch_size: 1000
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndTripleDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ENC(5nEBonUBVon2B4RReprlHQUKooCbu3zT92K79swVbpo=)
+      secretKey: ENC(qgval/ZH9NWKeyH9gWLGgp8MCtuGyKvaIF7+PWnI6krjiRGIIreKquro0cKkNETsnH5hRXKwl0w=)
+      instance-profile: true
+    s3:
+      bucket: ENC(kwu8hYg1M7yLisLc1NejYMExSijb1erJbEpUuO9SQY8=)
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+elasticsearch:
+  host: 127.0.0.1
+  port: 9200
