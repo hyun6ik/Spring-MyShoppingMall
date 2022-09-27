@@ -3,6 +3,7 @@ package hyun6ik.shoppingmall.interfaces.adminItem.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +35,21 @@ public class ItemRequestDto {
         private Long deliveryId;
 
         private List<MultipartFile> itemImageFiles;
+
+        public Insert() {
+
+        }
+
+        @Builder
+        public Insert(String itemName, Integer price, String itemDetail, Integer stockNumber, ItemSellStatus itemSellStatus, Long deliveryId, List<MultipartFile> itemImageFiles) {
+            this.itemName = itemName;
+            this.price = price;
+            this.itemDetail = itemDetail;
+            this.stockNumber = stockNumber;
+            this.itemSellStatus = itemSellStatus;
+            this.deliveryId = deliveryId;
+            this.itemImageFiles = itemImageFiles;
+        }
 
         public Item toEntity(Long memberId) {
             return Item.builder()
