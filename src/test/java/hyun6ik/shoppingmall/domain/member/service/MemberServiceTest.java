@@ -1,8 +1,6 @@
 package hyun6ik.shoppingmall.domain.member.service;
 
-import hyun6ik.shoppingmall.global.config.aws.AwsS3Config;
 import hyun6ik.shoppingmall.global.exception.LoginException;
-import hyun6ik.shoppingmall.infrastructure.file.S3Service;
 import hyun6ik.shoppingmall.infrastructure.member.MemberReader;
 import hyun6ik.shoppingmall.infrastructure.member.MemberStore;
 import hyun6ik.shoppingmall.infrastructure.member.MemberValidator;
@@ -13,9 +11,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@ActiveProfiles("test")
 @SpringBootTest
 class MemberServiceTest {
 
@@ -30,6 +31,7 @@ class MemberServiceTest {
 
     @Autowired
     MemberReader memberReader;
+
     @Autowired
     MemberRepository memberRepository;
 
