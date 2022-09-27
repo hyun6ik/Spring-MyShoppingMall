@@ -54,6 +54,7 @@ public class MemberRegisterDto {
         private String name;
         private String email;
 
+        @Builder
         public Response(String name, String email) {
             this.name = name;
             this.email = email;
