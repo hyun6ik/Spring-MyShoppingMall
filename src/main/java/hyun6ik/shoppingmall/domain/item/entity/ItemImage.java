@@ -34,17 +34,15 @@ public class ItemImage extends BaseTimeEntity {
     private Item item;
 
     @Builder
-    public ItemImage(Item item, String imageName, String imageUrl, String originalImageName, boolean isRepImage) {
-        this.item = item;
+    public ItemImage(String imageName, String imageUrl, String originalImageName, boolean isRepImage) {
         this.imageName = imageName;
         this.imageUrl = imageUrl;
         this.originalImageName = originalImageName;
         this.isRepImage = isRepImage;
     }
 
-    public static ItemImage of(Item item, UploadFile uploadFile, Boolean isRepImage) {
+    public static ItemImage of(UploadFile uploadFile, Boolean isRepImage) {
         return ItemImage.builder()
-                .item(item)
                 .imageName(uploadFile.getStoreFileName())
                 .imageUrl(uploadFile.getFileUploadUrl())
                 .originalImageName(uploadFile.getOriginalFileName())
@@ -63,5 +61,9 @@ public class ItemImage extends BaseTimeEntity {
         this.imageName = null;
         this.imageUrl = null;
         this.originalImageName = null;
+    }
+
+    public void belongTo(Item item) {
+        this.item = item;
     }
 }
