@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
+import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.*;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.QItemDtlDto;

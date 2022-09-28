@@ -34,4 +34,9 @@ public class ItemDocument {
                 .itemName(item.getItemName())
                 .build();
     }
+
+    public void update(Item item) {
+        this.itemName = item.getItemName();
+        this.itemDetail = item.getItemDetail();
+    }
 }

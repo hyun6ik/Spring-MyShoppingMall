@@ -26,4 +26,7 @@ public class ItemStore {
         return item;
     }
 
+    public void store(ItemDocument itemDocument) {
+        itemEsRepository.save(itemDocument);
+    }
 }

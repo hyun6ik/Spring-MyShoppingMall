@@ -1,11 +1,11 @@
 package hyun6ik.shoppingmall.infrastructure.item;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
-import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
+import hyun6ik.shoppingmall.domain.item.entity.ItemDocument;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.NotFoundException;
 import hyun6ik.shoppingmall.infrastructure.item.elasticsearch.ItemEsQueryRepository;
-import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
+import hyun6ik.shoppingmall.infrastructure.item.elasticsearch.ItemEsRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemQueryRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemImageDto;
@@ -28,8 +28,8 @@ public class ItemReader {
 
     private final ItemQueryRepository itemQueryRepository;
     private final ItemRepository itemRepository;
-    private final ItemImageRepository itemImageRepository;
     private final ItemEsQueryRepository itemEsQueryRepository;
+    private final ItemEsRepository itemEsRepository;
 
     public Page<MainItemDto> getMainItemsBy(String searchQuery, Pageable pageable) {
         return itemEsQueryRepository.searchMainItemsBy(searchQuery, pageable);
@@ -63,13 +63,13 @@ public class ItemReader {
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM));
     }
 
-    public List<ItemImage> getItemImagesBy(Long itemId) {
-        return itemImageRepository.findAllByItemId(itemId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM_IMAGE));
-    }
-
     public Item getItemBy(Long itemId) {
         return itemRepository.findById(itemId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM));
+    }
+
+    public ItemDocument getItemDocumentBy(Long itemId) {
+        return itemEsRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ITEM));
     }
 }

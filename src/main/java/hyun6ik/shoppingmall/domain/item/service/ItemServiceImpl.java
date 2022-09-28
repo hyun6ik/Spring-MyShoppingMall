@@ -1,6 +1,7 @@
 package hyun6ik.shoppingmall.domain.item.service;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
+import hyun6ik.shoppingmall.domain.item.entity.ItemDocument;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImages;
 import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
@@ -72,12 +73,14 @@ public class ItemServiceImpl implements ItemService{
     @Transactional
     public ItemResponseDto updateItem(Long itemId, Long memberId, ItemRequestDto.Update request) {
         final Item item = itemReader.getItemBy(itemId, memberId);
-        final List<ItemImage> itemImages = itemReader.getItemImagesBy(itemId);
+        final ItemDocument itemDocument = itemReader.getItemDocumentBy(itemId);
 
+        final ItemImages updateItemImages = itemFactory.updateItemImages(request, item.getItemImages());
         final Item updateItem = request.toEntity(memberId);
-        item.update(updateItem);
 
-        itemFactory.updateItemImages(request, itemImages);
+        item.update(updateItem, updateItemImages);
+        itemDocument.update(item);
+        itemStore.store(itemDocument);
 
         return itemDtoMapper.of(item);
     }

@@ -63,25 +63,29 @@ public class ItemFactory {
         return StringUtils.isBlank(imageFiles.get(i).getOriginalFilename());
     }
 
-    public void updateItemImages(ItemRequestDto.Update request, List<ItemImage> itemImages) {
+    public ItemImages updateItemImages(ItemRequestDto.Update request, ItemImages itemImages) {
+        List<ItemImage> imageList = new ArrayList<>();
+
         for (int i = 0; i < request.getItemImageFiles().size(); i++) {
-            updateItemImage(itemImages.get(i), request.getItemImageFiles().get(i), request.getOriginalImageNames().get(i));
+            final ItemImage updateItemImage = updateItemImage(itemImages.getItemImages().get(i), request.getItemImageFiles().get(i), request.getOriginalImageNames().get(i));
+            imageList.add(updateItemImage);
         }
+
+        return new ItemImages(imageList);
     }
 
-    public void updateItemImage(ItemImage itemImage, MultipartFile imageFile, String existImage){
+    public ItemImage updateItemImage(ItemImage itemImage, MultipartFile imageFile, String existImage){
         if (unModifiedImage(itemImage, imageFile, existImage)) {
-            return;
+            return itemImage;
         }
 
         if (alreadyNullImage(itemImage, imageFile, existImage)) {
-            return;
+            return itemImage;
         }
 
         if (deletedImage(itemImage, imageFile)) {
             s3Service.deleteImage(itemImage.getImageName());
-            itemImage.clear();
-            return;
+            return ItemImage.builder().isRepImage(false).build();
         }
 
         if (modifiedImage(itemImage)) {
@@ -89,7 +93,7 @@ public class ItemFactory {
         }
 
         final UploadFile uploadFile = s3Service.uploadImage(imageFile);
-        itemImage.update(uploadFile);
+        return ItemImage.of(uploadFile, itemImage.getIsRepImage());
     }
 
     private boolean alreadyNullImage(ItemImage itemImage, MultipartFile imageFile, String existImage) {

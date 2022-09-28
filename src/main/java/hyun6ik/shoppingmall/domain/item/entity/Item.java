@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -55,12 +56,20 @@ public class Item {
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ITEM);
         this.memberId = memberId;
         this.deliveryId = deliveryId;
-        this.itemImages = itemImages;
 
-        itemImages.belongTo(this);
+        addItemImages(itemImages);
     }
 
-    public void update(Item updateInitItem) {
+    private void addItemImages(ItemImages itemImages) {
+        if (itemImages != null) {
+            this.itemImages = itemImages;
+            itemImages.belongTo(this);
+            return;
+        }
+        this.itemImages = new ItemImages(new ArrayList<>());
+    }
+
+    public void update(Item updateInitItem, ItemImages updateItemImages) {
         this.itemName = updateInitItem.getItemName();
         this.price = updateInitItem.getPrice();
         this.stockNumber = updateInitItem.getStockNumber();
@@ -68,6 +77,7 @@ public class Item {
         this.itemSellStatus = updateInitItem.getItemSellStatus();
         this.memberId = updateInitItem.getMemberId();
         this.deliveryId = updateInitItem.getDeliveryId();
+        this.itemImages.update(updateItemImages);
     }
 
     public void decreaseStock(int count) {

@@ -26,4 +26,10 @@ public class ItemImages {
     public void belongTo(Item item) {
         itemImages.forEach(itemImage -> itemImage.belongTo(item));
     }
+
+    public void update(ItemImages updateItemImages) {
+        for (int i = 0; i < 5; i++) {
+            itemImages.get(i).update(updateItemImages.getItemImages().get(i));
+        }
+    }
 }

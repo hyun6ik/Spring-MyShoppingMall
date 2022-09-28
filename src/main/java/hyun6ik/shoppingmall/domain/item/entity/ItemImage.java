@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ItemImage extends BaseTimeEntity {
 
     @Id
@@ -33,6 +33,7 @@ public class ItemImage extends BaseTimeEntity {
     @JoinColumn(name = "item_id")
     private Item item;
 
+
     @Builder
     public ItemImage(String imageName, String imageUrl, String originalImageName, boolean isRepImage) {
         this.imageName = imageName;
@@ -50,7 +51,6 @@ public class ItemImage extends BaseTimeEntity {
                 .build();
     }
 
-
     public void update(UploadFile uploadFile) {
         this.imageName = uploadFile.getStoreFileName();
         this.imageUrl = uploadFile.getFileUploadUrl();
@@ -65,5 +65,12 @@ public class ItemImage extends BaseTimeEntity {
 
     public void belongTo(Item item) {
         this.item = item;
+    }
+
+    public void update(ItemImage itemImage) {
+        this.imageName = itemImage.getImageName();
+        this.imageUrl = itemImage.getImageUrl();
+        this.originalImageName = itemImage.getOriginalImageName();
+        this.isRepImage = itemImage.getIsRepImage();
     }
 }
