@@ -2,6 +2,7 @@ package hyun6ik.shoppingmall.domain.item.service;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
+import hyun6ik.shoppingmall.domain.item.entity.ItemImages;
 import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
 import hyun6ik.shoppingmall.global.annotation.LogTrace;
 import hyun6ik.shoppingmall.infrastructure.item.ItemDtoMapper;
@@ -37,13 +38,12 @@ public class ItemServiceImpl implements ItemService{
     @Override
     @Transactional
     public ItemResponseDto createItem(ItemRequestDto.Insert request, Long memberId) {
-        final Item initItem = request.toEntity(memberId);
-        final List<ItemImage> initItemImages = itemFactory.createItemImages(initItem, request.getItemImageFiles());
+        final ItemImages initItemImages = itemFactory.createItemImages(request.getItemImageFiles());
+        final Item initItem = request.toEntity(memberId, initItemImages);
 
         final Item item = itemStore.store(initItem);
-        final List<ItemImage> itemImages = itemStore.store(initItemImages);
 
-        return itemDtoMapper.of(item, itemImages);
+        return itemDtoMapper.of(item);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ItemServiceImpl implements ItemService{
 
         itemFactory.updateItemImages(request, itemImages);
 
-        return itemDtoMapper.of(item, itemImages);
+        return itemDtoMapper.of(item);
     }
 
     @Override

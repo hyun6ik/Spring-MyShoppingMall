@@ -1,7 +1,7 @@
 package hyun6ik.shoppingmall.infrastructure.item;
 
-import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
+import hyun6ik.shoppingmall.domain.item.entity.ItemImages;
 import hyun6ik.shoppingmall.infrastructure.file.S3Service;
 import hyun6ik.shoppingmall.infrastructure.file.UploadFile;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
@@ -23,7 +23,7 @@ public class ItemFactory {
 
     private final S3Service s3Service;
 
-    public List<ItemImage> createItemImages(Item item, List<MultipartFile> imageFiles) {
+    public ItemImages createItemImages(List<MultipartFile> imageFiles) {
 
         List<ItemImage> itemImages = new ArrayList<>();
 
@@ -31,7 +31,6 @@ public class ItemFactory {
             final UploadFile uploadFile = s3Service.uploadImage(imageFiles.get(i));
             if (RepImage(i)) {
                 itemImages.add(ItemImage.builder()
-                        .item(item)
                         .imageName(uploadFile.getStoreFileName())
                         .imageUrl(uploadFile.getFileUploadUrl())
                         .originalImageName(uploadFile.getOriginalFileName())
@@ -41,12 +40,10 @@ public class ItemFactory {
             }
             if (notUploadImage(imageFiles, i)) {
                 itemImages.add(ItemImage.builder()
-                        .item(item)
                         .build());
                 continue;
             }
             itemImages.add(ItemImage.builder()
-                    .item(item)
                     .imageName(uploadFile.getStoreFileName())
                     .imageUrl(uploadFile.getFileUploadUrl())
                     .originalImageName(uploadFile.getOriginalFileName())
@@ -54,7 +51,7 @@ public class ItemFactory {
                     .build());
         }
 
-        return itemImages;
+        return new ItemImages(itemImages);
     }
 
     private boolean RepImage(int i) {
