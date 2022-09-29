@@ -2,6 +2,7 @@ package hyun6ik.shoppingmall.domain.delivery.entity;
 
 import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +24,7 @@ public class Delivery extends BaseTimeEntity {
 
     private Long memberId;
 
+    @Builder
     public Delivery(Integer deliveryFee, String deliveryName, Long memberId) {
         this.deliveryFee = deliveryFee;
         this.deliveryName = deliveryName;

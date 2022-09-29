@@ -1,13 +1,16 @@
 package hyun6ik.shoppingmall.domain.item.service;
 
+import hyun6ik.shoppingmall.common.factory.DeliveryFactory;
 import hyun6ik.shoppingmall.common.factory.ItemFactory;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
+import hyun6ik.shoppingmall.infrastructure.delivery.repository.DeliveryRepository;
 import hyun6ik.shoppingmall.infrastructure.item.elasticsearch.ItemEsRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemResponseDto;
+import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,6 +36,9 @@ class ItemServiceTest {
 
    @Autowired
    private ItemEsRepository itemEsRepository;
+
+   @Autowired
+   private DeliveryRepository deliveryRepository;
 
    @AfterEach
    public void clear() {
@@ -76,5 +82,23 @@ class ItemServiceTest {
         assertThat(response.getPrice()).isEqualTo(20000);
         assertThat(response.getStockNumber()).isEqualTo(20);
         assertThat(response.getItemImageDtos().size()).isEqualTo(5);
+    }
+
+    @Test
+    @DisplayName("[상품 상세보기]")
+    void getItemDtl_success() {
+        //given
+        deliveryRepository.save(DeliveryFactory.delivery());
+        final Item item = itemRepository.save(ItemFactory.item());
+        //when
+        final ItemDtlDto response = itemService.getItemDtlBy(item.getId());
+        //then
+        assertThat(response.getItemName()).isEqualTo("상품1");
+        assertThat(response.getItemDetail()).isEqualTo("상세설명");
+        assertThat(response.getItemSellStatus()).isEqualTo(ItemSellStatus.SELL);
+        assertThat(response.getDeliveryFee()).isEqualTo(3000);
+        assertThat(response.getPrice()).isEqualTo(10000);
+        assertThat(response.getStockNumber()).isEqualTo(10);
+
     }
 }
