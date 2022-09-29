@@ -2,25 +2,25 @@ package hyun6ik.shoppingmall.domain.item.service;
 
 import hyun6ik.shoppingmall.common.factory.DeliveryFactory;
 import hyun6ik.shoppingmall.common.factory.ItemFactory;
-import hyun6ik.shoppingmall.common.factory.LoginFactory;
-import hyun6ik.shoppingmall.common.factory.MemberFactory;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
-import hyun6ik.shoppingmall.domain.member.entity.Member;
 import hyun6ik.shoppingmall.infrastructure.delivery.repository.DeliveryRepository;
 import hyun6ik.shoppingmall.infrastructure.item.elasticsearch.ItemEsRepository;
-import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
 import hyun6ik.shoppingmall.infrastructure.member.repository.MemberRepository;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemResponseDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
+import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -126,5 +126,84 @@ class ItemServiceTest {
         assertThat(findItem.getPrice()).isEqualTo(item.getPrice());
         assertThat(findItem.getStockNumber()).isEqualTo(item.getStockNumber());
         assertThat(findItem.getItemImages().getItemImages().size()).isEqualTo(item.getItemImages().getItemImages().size());
+    }
+
+    @Test
+    @DisplayName("[메인 페이지 상품 조회 페이징 처리]")
+    void getMainItem_success() {
+        //given
+        for (int i = 0; i < 10; i++) {
+            final Item item = itemRepository.save(ItemFactory.item());
+            itemEsRepository.save(ItemFactory.itemDocument(item));
+        }
+        Pageable pageable = PageRequest.of(0,6);
+        //when
+        final Page<MainItemDto> mainItems = itemService.getMainItemsBy("", pageable);
+        //then
+        assertThat(mainItems.getTotalPages()).isEqualTo(2);
+        assertThat(mainItems.getTotalElements()).isEqualTo(10);
+        assertThat(mainItems.getSize()).isEqualTo(6);
+        assertThat(mainItems.isFirst()).isTrue();
+        assertThat(mainItems.hasNext()).isTrue();
+    }
+
+    @Test
+    @DisplayName("[메인 페이지 상품 조회 검색 - itemName]")
+    void getMainItem_success2() {
+        //given
+        for (int i = 0; i < 10; i++) {
+            final Item item = itemRepository.save(ItemFactory.item());
+            itemEsRepository.save(ItemFactory.itemDocument(item));
+        }
+        final Item anotherItem = itemRepository.save(Item.builder()
+                .itemName("이름입니다")
+                .itemDetail("이상한상세설명")
+                .itemImages(ItemFactory.itemImages(1))
+                .stockNumber(10)
+                .itemSellStatus(ItemSellStatus.SELL)
+                .price(1000)
+                .memberId(1L)
+                .deliveryId(1L)
+                .build());
+        itemEsRepository.save(ItemFactory.itemDocument(anotherItem));
+
+        Pageable pageable = PageRequest.of(0,6);
+        //when
+        final Page<MainItemDto> mainItems = itemService.getMainItemsBy("이름", pageable);
+        //then
+        assertThat(mainItems.getContent().size()).isEqualTo(1);
+        assertThat(mainItems.getContent().get(0).getItemName()).isEqualTo(anotherItem.getItemName());
+        assertThat(mainItems.getContent().get(0).getItemDetail()).isEqualTo(anotherItem.getItemDetail());
+    }
+
+    @Test
+    @DisplayName("[메인 페이지 상품 조회 검색 - itemDetail]")
+    void getMainItem_success3() {
+        //given
+        for (int i = 0; i < 3; i++) {
+            final Item item = itemRepository.save(ItemFactory.item());
+            itemEsRepository.save(ItemFactory.itemDocument(item));
+        }
+        for (int i = 1; i <= 3; i++) {
+            final Item anotherItem = itemRepository.save(Item.builder()
+                    .itemName("이름입니다" + i)
+                    .itemDetail("이상한상세설명" + i)
+                    .itemImages(ItemFactory.itemImages(1))
+                    .stockNumber(10)
+                    .itemSellStatus(ItemSellStatus.SELL)
+                    .price(1000)
+                    .memberId(1L)
+                    .deliveryId(1L)
+                    .build());
+            itemEsRepository.save(ItemFactory.itemDocument(anotherItem));
+        }
+
+        Pageable pageable = PageRequest.of(0,6);
+        //when
+        final Page<MainItemDto> mainItems = itemService.getMainItemsBy("이상한", pageable);
+        //then
+        assertThat(mainItems.getContent().size()).isEqualTo(3);
+        assertThat(mainItems.getContent().get(0).getItemName()).isEqualTo("이름입니다3");
+        assertThat(mainItems.getContent().get(0).getItemDetail()).isEqualTo("이상한상세설명3");
     }
 }
