@@ -3,9 +3,11 @@ package hyun6ik.shoppingmall.interfaces.adminItem.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
+import hyun6ik.shoppingmall.domain.item.entity.ItemImages;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
@@ -51,7 +53,7 @@ public class ItemRequestDto {
             this.itemImageFiles = itemImageFiles;
         }
 
-        public Item toEntity(Long memberId) {
+        public Item toEntity(Long memberId, ItemImages initItemImages) {
             return Item.builder()
                     .itemName(itemName)
                     .price(price)
@@ -60,11 +62,13 @@ public class ItemRequestDto {
                     .itemSellStatus(itemSellStatus)
                     .deliveryId(deliveryId)
                     .memberId(memberId)
+                    .itemImages(initItemImages)
                     .build();
         }
     }
 
     @Getter @Setter
+    @ToString
     public static class Update {
         @NotNull
         private Long itemId;
@@ -94,6 +98,7 @@ public class ItemRequestDto {
         private List<String> originalImageNames;
 
         @QueryProjection
+        @Builder
         public Update(Long itemId, String itemName, Integer price, String itemDetail, Integer stockNumber, ItemSellStatus itemSellStatus, Long deliveryId) {
             this.itemId = itemId;
             this.itemName = itemName;
@@ -106,6 +111,14 @@ public class ItemRequestDto {
 
         public void addItemImageDtos(List<ItemImageDto> itemImageDtos) {
             this.itemImageDtos = itemImageDtos;
+        }
+
+        public void addOriginalImageNames(List<String> originalImageNames) {
+            this.originalImageNames = originalImageNames;
+        }
+
+        public void addMultipartFile(List<MultipartFile> itemImageFiles) {
+            this.itemImageFiles = itemImageFiles;
         }
 
         public Item toEntity(Long memberId) {
