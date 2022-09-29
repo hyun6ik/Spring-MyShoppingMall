@@ -2,12 +2,16 @@ package hyun6ik.shoppingmall.domain.item.service;
 
 import hyun6ik.shoppingmall.common.factory.DeliveryFactory;
 import hyun6ik.shoppingmall.common.factory.ItemFactory;
+import hyun6ik.shoppingmall.common.factory.LoginFactory;
+import hyun6ik.shoppingmall.common.factory.MemberFactory;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
+import hyun6ik.shoppingmall.domain.member.entity.Member;
 import hyun6ik.shoppingmall.infrastructure.delivery.repository.DeliveryRepository;
 import hyun6ik.shoppingmall.infrastructure.item.elasticsearch.ItemEsRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemImageRepository;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
+import hyun6ik.shoppingmall.infrastructure.member.repository.MemberRepository;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemResponseDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
@@ -18,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
@@ -40,10 +45,14 @@ class ItemServiceTest {
    @Autowired
    private DeliveryRepository deliveryRepository;
 
+   @Autowired
+   private MemberRepository memberRepository;
+
    @AfterEach
    public void clear() {
        itemRepository.deleteAll();
        itemEsRepository.deleteAll();
+       memberRepository.deleteAll();
    }
 
     @Test
@@ -99,6 +108,23 @@ class ItemServiceTest {
         assertThat(response.getDeliveryFee()).isEqualTo(3000);
         assertThat(response.getPrice()).isEqualTo(10000);
         assertThat(response.getStockNumber()).isEqualTo(10);
+    }
 
+    @Test
+    @Transactional
+    @DisplayName("[상품 조회하기]")
+    void getItem_success() {
+        //given
+        final Item item = itemRepository.save(ItemFactory.item());
+        //when
+        final Item findItem = itemService.getItemBy(item.getId());
+        //then
+        assertThat(findItem.getId()).isEqualTo(item.getId());
+        assertThat(findItem.getItemName()).isEqualTo(item.getItemName());
+        assertThat(findItem.getItemDetail()).isEqualTo(item.getItemDetail());
+        assertThat(findItem.getItemSellStatus()).isEqualTo(item.getItemSellStatus());
+        assertThat(findItem.getPrice()).isEqualTo(item.getPrice());
+        assertThat(findItem.getStockNumber()).isEqualTo(item.getStockNumber());
+        assertThat(findItem.getItemImages().getItemImages().size()).isEqualTo(item.getItemImages().getItemImages().size());
     }
 }
