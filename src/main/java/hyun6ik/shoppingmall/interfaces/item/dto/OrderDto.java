@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class OrderDto {
 
@@ -27,7 +28,7 @@ public class OrderDto {
         private LocalDateTime orderTime;
         private Long memberId;
         private String orderToken;
-        private OrderItemDto orderItemDto;
+        private List<OrderItemDto> orderItemDtos;
 
         @Getter
         @Setter

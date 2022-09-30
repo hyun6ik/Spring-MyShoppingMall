@@ -31,19 +31,21 @@ public class OrderItem extends BaseTimeEntity {
     private Long itemId;
 
     @Builder
-    public OrderItem(Integer count, Integer orderPrice, Order order, Long itemId) {
+    public OrderItem(Integer count, Integer orderPrice, Long itemId) {
         this.count = count;
         this.orderPrice = orderPrice;
-        this.order = order;
         this.itemId = itemId;
     }
 
-    public static OrderItem createOrderItem(Order order, Item item, int count) {
+    public static OrderItem createOrderItem(Item item, int count) {
         return OrderItem.builder()
                 .count(count)
                 .orderPrice(item.getPrice() * count)
                 .itemId(item.getId())
-                .order(order)
                 .build();
+    }
+
+    public void belongTo(Order order) {
+        this.order = order;
     }
 }
