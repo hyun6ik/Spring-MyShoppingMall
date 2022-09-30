@@ -27,6 +27,7 @@ spring:
           driver-class-name: org.mariadb.jdbc.Driver
 
   profiles:
+    active: dev
     include:
       - aws
 
