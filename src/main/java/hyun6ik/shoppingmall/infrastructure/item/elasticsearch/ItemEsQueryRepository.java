@@ -3,6 +3,7 @@ package hyun6ik.shoppingmall.infrastructure.item.elasticsearch;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.domain.item.entity.Item;
+import hyun6ik.shoppingmall.domain.item.entity.ItemDocument;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.QMainItemDto;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +35,10 @@ public class ItemEsQueryRepository {
         final Criteria criteria = Criteria.where("itemName").contains(searchQuery)
                 .or("itemDetail").contains(searchQuery);
         final Query query = new CriteriaQuery(criteria);
-        final SearchHits<Item> search = elasticsearchOperations.search(query, Item.class);
+        final SearchHits<ItemDocument> search = elasticsearchOperations.search(query, ItemDocument.class);
         final List<Long> ids = search.stream()
                 .map(SearchHit::getContent)
-                .map(Item::getId)
+                .map(ItemDocument::getId)
                 .collect(Collectors.toList());
         return findAllByIds(ids, pageable);
     }

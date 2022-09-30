@@ -2,17 +2,15 @@ package hyun6ik.shoppingmall.domain.item.entity;
 
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.global.utils.TokenGenerator;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.PersistenceConstructor;
+import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Getter
+@ToString
 @Document(indexName = "item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
@@ -45,8 +43,11 @@ public class Item {
 
     private Long deliveryId;
 
+    @Embedded
+    private ItemImages itemImages;
+
     @Builder
-    public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId, Long deliveryId) {
+    public Item(String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Long memberId, Long deliveryId, ItemImages itemImages) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
@@ -55,22 +56,20 @@ public class Item {
         this.itemToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ITEM);
         this.memberId = memberId;
         this.deliveryId = deliveryId;
+
+        addItemImages(itemImages);
     }
 
-    @PersistenceConstructor
-    public Item(Long id, String itemName, Integer price, Integer stockNumber, String itemDetail, ItemSellStatus itemSellStatus, String itemToken, Long memberId, Long deliveryId) {
-        this.id = id;
-        this.itemName = itemName;
-        this.price = price;
-        this.stockNumber = stockNumber;
-        this.itemDetail = itemDetail;
-        this.itemSellStatus = itemSellStatus;
-        this.itemToken = itemToken;
-        this.memberId = memberId;
-        this.deliveryId = deliveryId;
+    private void addItemImages(ItemImages itemImages) {
+        if (itemImages != null) {
+            this.itemImages = itemImages;
+            itemImages.belongTo(this);
+            return;
+        }
+        this.itemImages = new ItemImages(new ArrayList<>());
     }
 
-    public void update(Item updateInitItem) {
+    public void update(Item updateInitItem, ItemImages updateItemImages) {
         this.itemName = updateInitItem.getItemName();
         this.price = updateInitItem.getPrice();
         this.stockNumber = updateInitItem.getStockNumber();
@@ -78,6 +77,7 @@ public class Item {
         this.itemSellStatus = updateInitItem.getItemSellStatus();
         this.memberId = updateInitItem.getMemberId();
         this.deliveryId = updateInitItem.getDeliveryId();
+        this.itemImages.update(updateItemImages);
     }
 
     public void decreaseStock(int count) {

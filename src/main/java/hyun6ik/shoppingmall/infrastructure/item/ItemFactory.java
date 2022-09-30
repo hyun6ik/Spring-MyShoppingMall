@@ -1,7 +1,7 @@
 package hyun6ik.shoppingmall.infrastructure.item;
 
-import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
+import hyun6ik.shoppingmall.domain.item.entity.ItemImages;
 import hyun6ik.shoppingmall.infrastructure.file.S3Service;
 import hyun6ik.shoppingmall.infrastructure.file.UploadFile;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
@@ -23,7 +23,7 @@ public class ItemFactory {
 
     private final S3Service s3Service;
 
-    public List<ItemImage> createItemImages(Item item, List<MultipartFile> imageFiles) {
+    public ItemImages createItemImages(List<MultipartFile> imageFiles) {
 
         List<ItemImage> itemImages = new ArrayList<>();
 
@@ -31,7 +31,6 @@ public class ItemFactory {
             final UploadFile uploadFile = s3Service.uploadImage(imageFiles.get(i));
             if (RepImage(i)) {
                 itemImages.add(ItemImage.builder()
-                        .item(item)
                         .imageName(uploadFile.getStoreFileName())
                         .imageUrl(uploadFile.getFileUploadUrl())
                         .originalImageName(uploadFile.getOriginalFileName())
@@ -41,12 +40,10 @@ public class ItemFactory {
             }
             if (notUploadImage(imageFiles, i)) {
                 itemImages.add(ItemImage.builder()
-                        .item(item)
                         .build());
                 continue;
             }
             itemImages.add(ItemImage.builder()
-                    .item(item)
                     .imageName(uploadFile.getStoreFileName())
                     .imageUrl(uploadFile.getFileUploadUrl())
                     .originalImageName(uploadFile.getOriginalFileName())
@@ -54,7 +51,7 @@ public class ItemFactory {
                     .build());
         }
 
-        return itemImages;
+        return new ItemImages(itemImages);
     }
 
     private boolean RepImage(int i) {
@@ -66,25 +63,29 @@ public class ItemFactory {
         return StringUtils.isBlank(imageFiles.get(i).getOriginalFilename());
     }
 
-    public void updateItemImages(ItemRequestDto.Update request, List<ItemImage> itemImages) {
+    public ItemImages updateItemImages(ItemRequestDto.Update request, ItemImages itemImages) {
+        List<ItemImage> imageList = new ArrayList<>();
+
         for (int i = 0; i < request.getItemImageFiles().size(); i++) {
-            updateItemImage(itemImages.get(i), request.getItemImageFiles().get(i), request.getOriginalImageNames().get(i));
+            final ItemImage updateItemImage = updateItemImage(itemImages.getItemImages().get(i), request.getItemImageFiles().get(i), request.getOriginalImageNames().get(i));
+            imageList.add(updateItemImage);
         }
+
+        return new ItemImages(imageList);
     }
 
-    public void updateItemImage(ItemImage itemImage, MultipartFile imageFile, String existImage){
+    public ItemImage updateItemImage(ItemImage itemImage, MultipartFile imageFile, String existImage){
         if (unModifiedImage(itemImage, imageFile, existImage)) {
-            return;
+            return itemImage;
         }
 
         if (alreadyNullImage(itemImage, imageFile, existImage)) {
-            return;
+            return itemImage;
         }
 
         if (deletedImage(itemImage, imageFile)) {
             s3Service.deleteImage(itemImage.getImageName());
-            itemImage.clear();
-            return;
+            return ItemImage.builder().isRepImage(false).build();
         }
 
         if (modifiedImage(itemImage)) {
@@ -92,7 +93,7 @@ public class ItemFactory {
         }
 
         final UploadFile uploadFile = s3Service.uploadImage(imageFile);
-        itemImage.update(uploadFile);
+        return ItemImage.of(uploadFile, itemImage.getIsRepImage());
     }
 
     private boolean alreadyNullImage(ItemImage itemImage, MultipartFile imageFile, String existImage) {

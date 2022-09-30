@@ -14,10 +14,10 @@ spring:
       ddl-auto: create-drop
 
   datasource:
-      driver-class-name: org.h2.Driver
-      url: jdbc:h2:mem:test
-      username: sa
-      password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
 
 logging:
   level:
@@ -48,4 +48,3 @@ cloud:
 elasticsearch:
   host: 127.0.0.1
   port: 9200
-

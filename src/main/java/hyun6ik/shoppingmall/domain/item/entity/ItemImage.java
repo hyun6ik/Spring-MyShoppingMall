@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ItemImage extends BaseTimeEntity {
 
     @Id
@@ -33,25 +33,23 @@ public class ItemImage extends BaseTimeEntity {
     @JoinColumn(name = "item_id")
     private Item item;
 
+
     @Builder
-    public ItemImage(Item item, String imageName, String imageUrl, String originalImageName, boolean isRepImage) {
-        this.item = item;
+    public ItemImage(String imageName, String imageUrl, String originalImageName, boolean isRepImage) {
         this.imageName = imageName;
         this.imageUrl = imageUrl;
         this.originalImageName = originalImageName;
         this.isRepImage = isRepImage;
     }
 
-    public static ItemImage of(Item item, UploadFile uploadFile, Boolean isRepImage) {
+    public static ItemImage of(UploadFile uploadFile, Boolean isRepImage) {
         return ItemImage.builder()
-                .item(item)
                 .imageName(uploadFile.getStoreFileName())
                 .imageUrl(uploadFile.getFileUploadUrl())
                 .originalImageName(uploadFile.getOriginalFileName())
                 .isRepImage(isRepImage)
                 .build();
     }
-
 
     public void update(UploadFile uploadFile) {
         this.imageName = uploadFile.getStoreFileName();
@@ -63,5 +61,16 @@ public class ItemImage extends BaseTimeEntity {
         this.imageName = null;
         this.imageUrl = null;
         this.originalImageName = null;
+    }
+
+    public void belongTo(Item item) {
+        this.item = item;
+    }
+
+    public void update(ItemImage itemImage) {
+        this.imageName = itemImage.getImageName();
+        this.imageUrl = itemImage.getImageUrl();
+        this.originalImageName = itemImage.getOriginalImageName();
+        this.isRepImage = itemImage.getIsRepImage();
     }
 }

@@ -27,7 +27,7 @@ public class OrderHistDto {
         this.itemId = itemId;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
-        this.totalPrice = totalPrice;
+        this.totalPrice = totalPrice + totalDeliveryFee;
         this.totalDeliveryFee = totalDeliveryFee;
     }
 

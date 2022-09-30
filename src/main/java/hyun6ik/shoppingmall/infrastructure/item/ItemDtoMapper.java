@@ -15,6 +15,6 @@ import java.util.List;
 )
 public interface ItemDtoMapper {
 
-    @Mappings({@Mapping(source = "item.id", target = "itemId"), @Mapping(source = "itemImages", target = "itemImageDtos")})
-    ItemResponseDto of(Item item, List<ItemImage> itemImages);
+    @Mappings({@Mapping(source = "item.id", target = "itemId"), @Mapping(source = "item.itemImages.itemImages", target = "itemImageDtos")})
+    ItemResponseDto of(Item item);
 }

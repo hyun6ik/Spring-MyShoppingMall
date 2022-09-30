@@ -12,13 +12,8 @@ import org.springframework.stereotype.Component;
 public class OrderStore {
 
     private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
 
     public Order store(Order initOrder) {
         return orderRepository.save(initOrder);
-    }
-
-    public OrderItem store(OrderItem initOrderItem) {
-        return orderItemRepository.save(initOrderItem);
     }
 }

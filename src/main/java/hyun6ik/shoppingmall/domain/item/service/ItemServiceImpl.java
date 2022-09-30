@@ -1,8 +1,9 @@
 package hyun6ik.shoppingmall.domain.item.service;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
-import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
-import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
+import hyun6ik.shoppingmall.domain.item.entity.ItemDocument;
+import hyun6ik.shoppingmall.domain.item.entity.ItemImages;
+import hyun6ik.shoppingmall.domain.order.entity.OrderItems;
 import hyun6ik.shoppingmall.global.annotation.LogTrace;
 import hyun6ik.shoppingmall.infrastructure.item.ItemDtoMapper;
 import hyun6ik.shoppingmall.infrastructure.item.ItemFactory;
@@ -37,13 +38,12 @@ public class ItemServiceImpl implements ItemService{
     @Override
     @Transactional
     public ItemResponseDto createItem(ItemRequestDto.Insert request, Long memberId) {
-        final Item initItem = request.toEntity(memberId);
-        final List<ItemImage> initItemImages = itemFactory.createItemImages(initItem, request.getItemImageFiles());
+        final ItemImages initItemImages = itemFactory.createItemImages(request.getItemImageFiles());
+        final Item initItem = request.toEntity(memberId, initItemImages);
 
         final Item item = itemStore.store(initItem);
-        final List<ItemImage> itemImages = itemStore.store(initItemImages);
 
-        return itemDtoMapper.of(item, itemImages);
+        return itemDtoMapper.of(item);
     }
 
     @Override
@@ -72,14 +72,16 @@ public class ItemServiceImpl implements ItemService{
     @Transactional
     public ItemResponseDto updateItem(Long itemId, Long memberId, ItemRequestDto.Update request) {
         final Item item = itemReader.getItemBy(itemId, memberId);
-        final List<ItemImage> itemImages = itemReader.getItemImagesBy(itemId);
+        final ItemDocument itemDocument = itemReader.getItemDocumentBy(itemId);
 
+        final ItemImages updateItemImages = itemFactory.updateItemImages(request, item.getItemImages());
         final Item updateItem = request.toEntity(memberId);
-        item.update(updateItem);
 
-        itemFactory.updateItemImages(request, itemImages);
+        item.update(updateItem, updateItemImages);
+        itemDocument.update(item);
+        itemStore.store(itemDocument);
 
-        return itemDtoMapper.of(item, itemImages);
+        return itemDtoMapper.of(item);
     }
 
     @Override
@@ -89,8 +91,12 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     @Transactional
-    public void increaseStock(OrderItem cancelOrderItem) {
-        final Item item = itemReader.getItemBy(cancelOrderItem.getItemId());
-        item.increaseStock(cancelOrderItem.getCount());
+    public void increaseStock(OrderItems cancelOrderItems) {
+        cancelOrderItems.getOrderItems().forEach(
+            cancelOrderItem -> {
+                final Item item = cancelOrderItem.getItem();
+                item.increaseStock(cancelOrderItem.getCount());
+            }
+        );
     }
 }

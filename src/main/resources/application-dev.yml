@@ -14,17 +14,17 @@ spring:
     show-sql: true  # sql 출력
   datasource:
     hikari:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: ENC(Pb6vo/FQ8AA/hAHlLuHccGQ7ulMNZyNc/hT1LoOVtyJicxv0CyJMDdQpPaOHFj8+DXKZvqC9DGHwH+ambV4V3j5UFyH8ddkgK8VfanSAsrJyHKM2nu9xz38GLhOcJU1k2vtFBNJcLl1TahCj8M0LL6chYD4uqk+ud7K5oi22ASI=)
-      username: ENC(guBiz4Lq+Oki9Xd/DH/3iCtbwaNG0JqZ)
-      password: ENC(Vi1jn3LAtx6zij53o2Pi4EEw5VtqQluSKECqwvfopqE=)
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: ENC(UPHfQwLj+0In5sKZ1OSY2DagSVGIJI+hNx15Axc+dNAS5HvKzmhxq57W+7xeAa2zeDxbWiMdxCfVsWloX/b0gtwIQ9dkaiNAJ5O3SIslQ0W2O9IE/Kd3Z6nNtGQSYw1J)
+      username: ENC(Njk7nM6K6Lxqro31Vc4dDIgpkOe13Rmz)
+      password: ENC(AAISN8l3s6xRwNcHpViG5ow9rfPH65iG+PHLMRG5U7k=)
       slave:
         slave-1:
           name: slave-1
-          url: ENC(55ZiFOv9mlU7CIocRSNLqlHbc+pgG6OVWuO4oNGbp3vhcn+4zb1k8c4w9kt0vaS7ZIpBexhJ3lBQXlAvhLnnK19h7X7pWcZ8H1cuvUgzHbheVasnz7P4bvIMWUlU5JXfCW2obWyGYd4gMAdqR0ygn1e3dMLb3xjcxBU1T2oGaF4=)
-          username: ENC(jielt3uXkdIpIX+/WaB2aXEqGa5rkhQ6)
-          password: ENC(0Q2K1TPduQu2FfUHtRRCI4WemCLixKbvE3wNlL6Ipuo=)
-          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: ENC(XTeuvuANKhO2nIqFnFxwr5c7QOywWFbeIZLt2/Qmo3ZTZh4w0afbtFpVz/tb7T/An5G0bNPLp2ijykQ14Z27oE8FrYI3YYnwoubXlF5uREC/9j8KTqoY079yGIXnppCX)
+          username: ENC(Njk7nM6K6Lxqro31Vc4dDIgpkOe13Rmz)
+          password: ENC(AAISN8l3s6xRwNcHpViG5ow9rfPH65iG+PHLMRG5U7k=)
+          driver-class-name: org.mariadb.jdbc.Driver
 
 
 
@@ -34,5 +34,5 @@ jasypt:
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
 
 elasticsearch:
-  host: ENC(/zN564TDGf7tqc0pHS86fekwH+I+5N9K)
+  host: localhost
   port: 9200
