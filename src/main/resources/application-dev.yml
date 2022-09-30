@@ -26,7 +26,9 @@ spring:
           password: ENC(AAISN8l3s6xRwNcHpViG5ow9rfPH65iG+PHLMRG5U7k=)
           driver-class-name: org.mariadb.jdbc.Driver
 
-
+  profiles:
+    include:
+      - aws
 
 jasypt:
   encryptor:
