@@ -2,7 +2,7 @@ package hyun6ik.shoppingmall.application.order;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.service.ItemService;
-import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
+import hyun6ik.shoppingmall.domain.order.entity.OrderItems;
 import hyun6ik.shoppingmall.domain.order.service.OrderService;
 import hyun6ik.shoppingmall.interfaces.item.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class OrderFacade {
 
     @Transactional
     public void cancelOrder(Long orderId) {
-        final OrderItem cancelOrderItem = orderService.cancelOrder(orderId);
-        itemService.increaseStock(cancelOrderItem);
+        final OrderItems cancelOrderItems = orderService.cancelOrder(orderId);
+        itemService.increaseStock(cancelOrderItems);
     }
 }

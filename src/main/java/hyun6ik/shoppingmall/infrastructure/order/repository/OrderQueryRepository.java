@@ -30,7 +30,7 @@ public class OrderQueryRepository {
         final List<OrderHistDto> result = queryFactory
                 .select(new QOrderHistDto(
                         order.id,
-                        orderItem.itemId,
+                        orderItem.item.id,
                         order.orderTime,
                         order.orderStatus,
                         orderItem.orderPrice,
@@ -59,7 +59,7 @@ public class OrderQueryRepository {
                 .from(delivery)
                 .where(delivery.id.eq(JPAExpressions.select(item.deliveryId)
                         .from(item)
-                        .where(item.id.eq(orderItem.itemId))));
+                        .where(item.id.eq(orderItem.item.id))));
     }
 
     public List<OrderHistDto.OrderItemHistDto> findOrderHistItemDtosBy(Long orderId, Long itemId) {

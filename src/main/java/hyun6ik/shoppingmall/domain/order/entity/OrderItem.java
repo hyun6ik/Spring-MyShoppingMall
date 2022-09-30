@@ -28,20 +28,22 @@ public class OrderItem extends BaseTimeEntity {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private Long itemId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     @Builder
-    public OrderItem(Integer count, Integer orderPrice, Long itemId) {
+    public OrderItem(Integer count, Integer orderPrice, Item item) {
         this.count = count;
         this.orderPrice = orderPrice;
-        this.itemId = itemId;
+        this.item = item;
     }
 
     public static OrderItem createOrderItem(Item item, int count) {
         return OrderItem.builder()
                 .count(count)
                 .orderPrice(item.getPrice() * count)
-                .itemId(item.getId())
+                .item(item)
                 .build();
     }
 

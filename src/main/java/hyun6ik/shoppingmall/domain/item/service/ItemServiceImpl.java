@@ -2,9 +2,8 @@ package hyun6ik.shoppingmall.domain.item.service;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.entity.ItemDocument;
-import hyun6ik.shoppingmall.domain.item.entity.ItemImage;
 import hyun6ik.shoppingmall.domain.item.entity.ItemImages;
-import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
+import hyun6ik.shoppingmall.domain.order.entity.OrderItems;
 import hyun6ik.shoppingmall.global.annotation.LogTrace;
 import hyun6ik.shoppingmall.infrastructure.item.ItemDtoMapper;
 import hyun6ik.shoppingmall.infrastructure.item.ItemFactory;
@@ -92,8 +91,12 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     @Transactional
-    public void increaseStock(OrderItem cancelOrderItem) {
-        final Item item = itemReader.getItemBy(cancelOrderItem.getItemId());
-        item.increaseStock(cancelOrderItem.getCount());
+    public void increaseStock(OrderItems cancelOrderItems) {
+        cancelOrderItems.getOrderItems().forEach(
+            cancelOrderItem -> {
+                final Item item = cancelOrderItem.getItem();
+                item.increaseStock(cancelOrderItem.getCount());
+            }
+        );
     }
 }

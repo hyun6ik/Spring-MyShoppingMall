@@ -49,9 +49,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     @Transactional
-    public OrderItem cancelOrder(Long orderId) {
+    public OrderItems cancelOrder(Long orderId) {
         final Order order = orderReader.getOrderBy(orderId);
         order.cancelOrder();
-        return orderReader.getOrderItemBy(orderId);
+        return order.getOrderItems();
     }
 }
