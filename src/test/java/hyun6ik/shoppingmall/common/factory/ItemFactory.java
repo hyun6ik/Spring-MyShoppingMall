@@ -130,9 +130,9 @@ public class ItemFactory {
                             "image",
                             "test.png",
                             "image/png",
-                            new FileInputStream("D:\\Spring\\shoppingmall\\uploadImage\\6a3bcdbf-4595-4ca2-92f9-5225feb0dc1a.PNG")
+                            "test".getBytes())
 
-                    ));
+                    );
 
         }
         return multipartFiles;
