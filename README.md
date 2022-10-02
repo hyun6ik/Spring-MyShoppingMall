@@ -30,7 +30,8 @@
 
 ## 🛠 Tech Stacks
 
-<img width="576" alt="쇼핑몰 스택2" src="https://user-images.githubusercontent.com/63233168/193446577-90f56e7b-a5fb-43ca-aca0-80eb2eba9aea.PNG">
+<img width="516" alt="쇼핑몰 스택4" src="https://user-images.githubusercontent.com/63233168/193464546-60872506-f775-4fb1-9d5f-1d43fce1aeb8.PNG">
+
 
 ## 🔌 Infrastructures
 
