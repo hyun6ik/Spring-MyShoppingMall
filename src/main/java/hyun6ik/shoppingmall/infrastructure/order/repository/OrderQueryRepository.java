@@ -67,10 +67,11 @@ public class OrderQueryRepository {
                 .select(new QOrderHistDto_OrderItemHistDto(
                         getItemName(itemId),
                         orderItem.count,
-                        orderItem.orderPrice,
+                        item.price,
                         getItemRepImage(itemId)
                 ))
                 .from(orderItem)
+                .innerJoin(orderItem.item, item)
                 .where(orderItem.order.id.eq(orderId))
                 .fetch();
 
