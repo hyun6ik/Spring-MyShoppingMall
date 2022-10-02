@@ -6,6 +6,11 @@
 
  :gift: 나만의 작은 쇼핑몰 <br>
   🖋 [현식이네가게 (MyShoppingMall)](https://github.com/hyun6ik/Spring-MyShoppingMall)
+</div>
+
+<div align="center">
+
+[![Release](https://img.shields.io/badge/release-1.0.0-skyblue.svg)](https://github.com/hyun6ik/Spring-MyShoppingMall/releases/tag/v1.0.0)
 
 </div>
 <br/>
