@@ -2,6 +2,9 @@ spring:
   flyway:
     enabled: true
 
+  profiles:
+    include: aws
+
   jpa:
     properties:
       hibernate:
@@ -25,8 +28,6 @@ spring:
           username: ENC(Njk7nM6K6Lxqro31Vc4dDIgpkOe13Rmz)
           password: ENC(AAISN8l3s6xRwNcHpViG5ow9rfPH65iG+PHLMRG5U7k=)
           driver-class-name: org.mariadb.jdbc.Driver
-
-
 
 jasypt:
   encryptor:
