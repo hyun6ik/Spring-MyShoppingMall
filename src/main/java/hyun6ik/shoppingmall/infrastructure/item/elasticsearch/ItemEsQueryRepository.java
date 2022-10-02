@@ -61,11 +61,7 @@ public class ItemEsQueryRepository {
                 .where(item.id.in(ids), itemImage.isRepImage.isTrue(), item.itemSellStatus.eq(ItemSellStatus.SELL))
                 .fetch();
 
-        final int size = queryFactory
-                .selectFrom(item)
-                .where(item.itemSellStatus.eq(ItemSellStatus.SELL))
-                .fetch()
-                .size();
+        final int size = ids.size();
 
         return new PageImpl<>(content, pageable, size);
     }
