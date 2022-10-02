@@ -1,5 +1,5 @@
 <p align="center">
-<img width="554" alt="쇼핑몰 메인2" src="https://user-images.githubusercontent.com/63233168/193446547-1451e612-8f9a-40ff-87de-490238d0885c.PNG">
+<img width="818" alt="쇼핑몰 메인2" src="https://user-images.githubusercontent.com/63233168/193446648-90583cc2-f6f3-4f57-a45e-b4da00cb2826.PNG">
 </p>
 
 <div align="center">
