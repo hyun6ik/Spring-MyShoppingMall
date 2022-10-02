@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="338" alt="쇼핑몰 메인" src="https://user-images.githubusercontent.com/63233168/193443380-78bec114-009d-4371-acec-85193dace562.PNG">
+<img width="554" alt="쇼핑몰 메인2" src="https://user-images.githubusercontent.com/63233168/193446547-1451e612-8f9a-40ff-87de-490238d0885c.PNG">
 </p>
 
 <div align="center">
@@ -12,12 +12,12 @@
 
 ## :office: Project Layer
 
-<img width="296" alt="쇼핑몰 레이어" src="https://user-images.githubusercontent.com/63233168/193446343-f6200aeb-4b96-45c1-b59a-f86a01f5541a.PNG">
+<img width="425" alt="쇼핑몰 레이어2" src="https://user-images.githubusercontent.com/63233168/193446563-82d19696-5a2b-4711-a481-02c089e3e5e2.PNG">
 
 ## 🛠 Tech Stacks
 
-<img width="376" alt="쇼핑몰 스택" src="https://user-images.githubusercontent.com/63233168/193446200-8ee0109f-c068-41bb-b190-951fcf461ae8.PNG">
+<img width="576" alt="쇼핑몰 스택2" src="https://user-images.githubusercontent.com/63233168/193446577-90f56e7b-a5fb-43ca-aca0-80eb2eba9aea.PNG">
 
 ## 🔌 Infrastructures
 
-<img width="523" alt="쇼핑몰 인프라" src="https://user-images.githubusercontent.com/63233168/193446237-e207c8f3-6f44-4145-b387-a1ddc7837700.PNG">
+<img width="800" alt="쇼핑몰 인프라2" src="https://user-images.githubusercontent.com/63233168/193446586-8f97dd4d-458e-4b9c-a91e-303b60d3672c.PNG">
