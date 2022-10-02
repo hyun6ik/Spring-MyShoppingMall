@@ -1,5 +1,6 @@
 package hyun6ik.shoppingmall.domain.item.entity;
 
+import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.*;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 @ToString
 @Document(indexName = "item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Item {
+public class Item extends BaseTimeEntity {
 
     private static final String PREFIX_ITEM = "item_";
 
