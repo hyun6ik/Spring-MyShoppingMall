@@ -11,6 +11,7 @@ module "ec2" {
   vpc_security_group_ids      = [module.ssh.security_group_id,module.http.security_group_id, module.https.security_group_id, local.default_sg_id]
   associate_public_ip_address = true
 
+  iam_instance_profile        = module.iam.iam_instance_profile_name
   user_data  = data.template_file.userdata.rendered
   tags = local.tags
 }
@@ -57,4 +58,17 @@ module "https" {
   egress_rules        = local.https_egress_rules
 
   tags = local.tags
+}
+
+module "iam" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version = "~> 4.3"
+
+  create_role             = true
+  create_instance_profile = true
+  role_name               = local.role_name
+  role_requires_mfa       = false
+
+  trusted_role_services   = var.trusted_role_services
+  custom_role_policy_arns = local.custom_role_policy_arns
 }

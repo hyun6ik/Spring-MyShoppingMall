@@ -5,7 +5,7 @@ locals {
   ssh_sg_name = format("%s-ssh-sg", var.name)
   http_sg_name = format("%s-http-sg", var.name)
   https_sg_name = format("%s-https-sg", var.name)
-  elasticsearch_sg_name = format("%s-elasticsearch-sg", var.name)
+  role_name    = format("%s-role", var.name)
 
   tags = merge(var.tags, { Owner = var.owner, Environment = var.env })
 
@@ -40,4 +40,7 @@ locals {
 
   https_tcp_listeners = var.https_tcp_listeners
   https_tcp_listener_rules = var.https_tcp_listener_rules
+
+  custom_role_policy_arns = var.custom_role_policy_arns
+  trusted_role_services   = var.trusted_role_services
 }
