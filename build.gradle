@@ -27,6 +27,8 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.0.0'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 
     //aws
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
