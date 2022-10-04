@@ -8,7 +8,7 @@ module "ec2" {
   instance_type               = local.instance_type
   availability_zone           = element(local.azs, 0)
   subnet_id                   = element(local.public_subnet_ids, 0)
-  vpc_security_group_ids      = [module.ssh.security_group_id,module.http.security_group_id, module.https.security_group_id, local.default_sg_id]
+  vpc_security_group_ids      = [module.ssh.security_group_id,module.http.security_group_id, module.http_8080.security_group_id, local.default_sg_id]
   associate_public_ip_address = true
 
   iam_instance_profile        = module.iam.iam_instance_profile_name
@@ -31,34 +31,36 @@ module "ssh" {
   tags = local.tags
 }
 module "http" {
-  source  = "terraform-aws-modules/security-group/aws"
+  source = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name        = local.http_sg_name
+  name = local.http_sg_name
   description = local.http_sg_description
-  vpc_id      = local.vpc_id
+  vpc_id = local.vpc_id
 
   ingress_cidr_blocks = local.http_ingress_cidr_blocks
-  ingress_rules       = local.http_ingress_rules
-  egress_rules        = local.http_egress_rules
+  ingress_rules = local.http_ingress_rules
+  egress_rules = local.http_egress_rules
 
   tags = local.tags
 }
 
-module "https" {
+module "http_8080" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name        = local.https_sg_name
-  description = local.https_sg_description
+  name        = local.http_8080_sg_name
+  description = local.http_8080_sg_description
   vpc_id      = local.vpc_id
 
-  ingress_cidr_blocks = local.https_ingress_cidr_blocks
-  ingress_rules       = local.https_ingress_rules
-  egress_rules        = local.https_egress_rules
+  ingress_cidr_blocks = local.http_8080_ingress_cidr_blocks
+  ingress_rules       = local.http_8080_ingress_rules
+  egress_rules        = local.http_8080_egress_rules
 
   tags = local.tags
 }
+
+
 
 module "iam" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"

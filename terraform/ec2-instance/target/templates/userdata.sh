@@ -16,8 +16,5 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 sudo chmod 666 /var/run/docker.sock
 
-## elasticsearch
-curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.
-sudo apt update
-sudo apt install elasticsearch -y
+## docker-compose
+sudo apt install docker-compose -y

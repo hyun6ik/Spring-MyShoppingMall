@@ -58,15 +58,16 @@ http_tcp_listener_rules = [
   }
 ]
 
-https_sg_description = "HTTPS Security group for Bastion EC2 instance"
-https_ingress_cidr_blocks = ["0.0.0.0/0"]
-https_ingress_rules = ["https-443-tcp"]
-https_egress_rules = ["all-all"]
+# http 8080 sg
+http_8080_sg_description = "HTTP 8080 group for Bastion EC2 instance"
+http_8080_ingress_cidr_blocks = ["0.0.0.0/0"]
+http_8080_ingress_rules = ["http-8080-tcp"]
+http_8080_egress_rules = ["all-all"]
 
-https_tcp_listeners = [
+http_8080_tcp_listeners = [
   {
-    port = 443
-    protocol = "HTTPS"
+    port = 8080
+    protocol = "HTTP"
     action_type = "fixed-response"
     fixed_response = {
       content_type = "text/plain"
@@ -76,9 +77,9 @@ https_tcp_listeners = [
   }
 ]
 
-https_tcp_listener_rules = [
+http_8080_tcp_listener_rules = [
   {
-    https_listener_index = 0
+    http_listener_index = 0
     actions = [{
       type = "forward"
       target_group_index = 0
