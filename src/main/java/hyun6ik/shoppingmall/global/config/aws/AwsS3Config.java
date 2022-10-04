@@ -13,14 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AwsS3Config {
 
+    private static final String REGION = "ap-northeast-2";
+
     @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
 
     @Value("${cloud.aws.credentials.secret-key}")
     private String secretKey;
-
-    @Value("${cloud.aws.region.static}")
-    private String region;
 
     static {
         System.setProperty("com.amazonaws.sdk.disableEc2Metadata", "true");
@@ -30,7 +29,7 @@ public class AwsS3Config {
     public AmazonS3Client amazonS3Client() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secretKey);
         return (AmazonS3Client) AmazonS3ClientBuilder.standard()
-                .withRegion(region)
+                .withRegion(REGION)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .build();
     }
