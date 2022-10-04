@@ -35,4 +35,5 @@
 
 ## 🔌 Infrastructures
 
-<img width="800" alt="쇼핑몰 인프라2" src="https://user-images.githubusercontent.com/63233168/193446586-8f97dd4d-458e-4b9c-a91e-303b60d3672c.PNG">
+<img width="634" alt="쇼핑몰 인프라3" src="https://user-images.githubusercontent.com/63233168/193896517-c1052194-4734-44d2-b7bd-cf791cb3cd5b.PNG">
+
