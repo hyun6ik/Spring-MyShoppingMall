@@ -17,7 +17,7 @@ ami_filters = [
 ]
 
 # EC2
-instance_type = "t2.micro"
+instance_type = "t3.small"
 key_name      = "dev"
 
 # ssh sg
@@ -25,34 +25,3 @@ ssh_sg_description      = "SSH Security group for Bastion EC2 instance"
 ssh_ingress_cidr_blocks = ["0.0.0.0/0"]
 ssh_ingress_rules       = ["ssh-tcp"]
 ssh_egress_rules        = ["all-all"]
-
-elasticsearch_sg_description = "ElasticSearch Security group for Bastion EC2 instance"
-elasticsearch_ingress_cidr_blocks = ["0.0.0.0/0"]
-elasticsearch_ingress_rules = ["elasticsearch-tcp"]
-elasticsearch_egress_rules = ["all-all"]
-
-elasticsearch_tcp_listeners = [
-  {
-    port = 9200
-    protocol = "TCP"
-    action_type = "fixed-response"
-    fixed_response = {
-      content_type = "text/plain"
-      message_body = "Not Found"
-      status_code = "403"
-    }
-  }
-]
-
-elasticsearch_tcp_listener_rules = [
-  {
-    mysql_listener_index = 0
-    actions = [{
-      type = "forward"
-      target_group_index = 0
-    }]
-    conditions = [{
-      path_patterns = ["/*"]
-    }]
-  }
-]
