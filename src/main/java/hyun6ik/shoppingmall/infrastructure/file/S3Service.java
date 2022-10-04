@@ -20,8 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class S3Service {
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
+    private static final String BUCKET = "hyun6ik-shoppingmall";
 
     private final AmazonS3Client amazonS3Client;
 
@@ -35,7 +34,7 @@ public class S3Service {
         final ObjectMetadata objectMetadata = getObjectMetadata(file);
 
         try(InputStream inputStream = file.getInputStream()) {
-            amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+            amazonS3Client.putObject(new PutObjectRequest(BUCKET, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             final String imageUrl = getFileUrl(fileName);
             return new UploadFile(originalFilename, fileName, imageUrl);
@@ -52,11 +51,11 @@ public class S3Service {
     }
 
     private String getFileUrl(String fileName) {
-        return amazonS3Client.getUrl(bucket, fileName).toString();
+        return amazonS3Client.getUrl(BUCKET, fileName).toString();
     }
 
     public void deleteImage(String fileName) {
-        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        amazonS3Client.deleteObject(new DeleteObjectRequest(BUCKET, fileName));
     }
 
     private String createFileName(String fileName) {
