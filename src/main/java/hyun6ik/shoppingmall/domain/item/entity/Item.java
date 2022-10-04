@@ -12,7 +12,6 @@ import java.util.ArrayList;
 @Entity
 @Getter
 @ToString
-@Document(indexName = "item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item extends BaseTimeEntity {
 
