@@ -53,12 +53,3 @@ jobs:
       - name: Docker image Push
         run: |
           docker push ${{env.NAME}}/${{env.REPO}}:latest
-
-  deploy:
-    needs: build
-    name: Deploy
-    runs-on: [ self-hosted, label-development ]
-    steps:
-      - name: deploy run
-        run: |
-          sudo sh /home/ubuntu/run.sh
