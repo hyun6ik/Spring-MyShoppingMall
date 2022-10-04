@@ -10,7 +10,7 @@
 
 <div align="center">
 
-[![Release](https://img.shields.io/badge/release-1.0.0-skyblue.svg)](https://github.com/hyun6ik/Spring-MyShoppingMall/releases/tag/v1.0.0)
+[![Release](https://img.shields.io/badge/release-1.0.1-skyblue.svg)](https://github.com/hyun6ik/Spring-MyShoppingMall/releases/tag/v1.0.1)
 
 </div>
 <br/>
