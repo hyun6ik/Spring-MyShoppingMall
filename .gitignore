@@ -41,3 +41,4 @@ out/
 src/main/resources/application-aws.yml
 src/test/resources/application-aws.yml
 
+/terraform/ec2-instance/webserver/nginx/
