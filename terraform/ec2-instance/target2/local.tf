@@ -7,6 +7,7 @@ locals {
   http_8080_sg_name = format("%s-http-8080-sg", var.name)
   role_name    = format("%s-role", var.name)
 
+
   tags = merge(var.tags, { Owner = var.owner, Environment = var.env })
 
   vpc_id            = data.terraform_remote_state.vpc.outputs.vpc_id
@@ -40,7 +41,6 @@ locals {
 
   http_8080_tcp_listeners = var.http_8080_tcp_listeners
   http_8080_tcp_listener_rules = var.http_8080_tcp_listener_rules
-
 
   custom_role_policy_arns = var.custom_role_policy_arns
   trusted_role_services   = var.trusted_role_services

@@ -31,16 +31,16 @@ module "ssh" {
   tags = local.tags
 }
 module "http" {
-  source = "terraform-aws-modules/security-group/aws"
+  source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name = local.http_sg_name
+  name        = local.http_sg_name
   description = local.http_sg_description
-  vpc_id = local.vpc_id
+  vpc_id      = local.vpc_id
 
   ingress_cidr_blocks = local.http_ingress_cidr_blocks
-  ingress_rules = local.http_ingress_rules
-  egress_rules = local.http_egress_rules
+  ingress_rules       = local.http_ingress_rules
+  egress_rules        = local.http_egress_rules
 
   tags = local.tags
 }
@@ -59,8 +59,6 @@ module "http_8080" {
 
   tags = local.tags
 }
-
-
 
 module "iam" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"

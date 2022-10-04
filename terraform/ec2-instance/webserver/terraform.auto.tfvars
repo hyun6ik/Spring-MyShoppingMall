@@ -1,5 +1,5 @@
 env   = "dev"
-name  = "shoppingmall"
+name  = "webserver"
 owner = "hyun6ik"
 tags  = {}
 
@@ -17,7 +17,7 @@ ami_filters = [
 ]
 
 # EC2
-instance_type = "t3.medium"
+instance_type = "t2.micro"
 key_name      = "dev"
 
 # ssh sg
@@ -58,7 +58,38 @@ http_tcp_listener_rules = [
   }
 ]
 
-# http 8080 sg
+https_sg_description = "HTTPS Security group for Bastion EC2 instance"
+https_ingress_cidr_blocks = ["0.0.0.0/0"]
+https_ingress_rules = ["https-443-tcp"]
+https_egress_rules = ["all-all"]
+
+https_tcp_listeners = [
+  {
+    port = 443
+    protocol = "HTTPS"
+    action_type = "fixed-response"
+    fixed_response = {
+      content_type = "text/plain"
+      message_body = "Not Found"
+      status_code = "403"
+    }
+  }
+]
+
+https_tcp_listener_rules = [
+  {
+    https_listener_index = 0
+    actions = [{
+      type = "forward"
+      target_group_index = 0
+    }]
+    conditions = [{
+      path_patterns = ["/*"]
+    }]
+  }
+]
+
+# http sg
 http_8080_sg_description = "HTTP 8080 group for Bastion EC2 instance"
 http_8080_ingress_cidr_blocks = ["0.0.0.0/0"]
 http_8080_ingress_rules = ["http-8080-tcp"]
@@ -89,6 +120,7 @@ http_8080_tcp_listener_rules = [
     }]
   }
 ]
+
 
 trusted_role_services = ["ec2.amazonaws.com"]
 custom_role_policy_arns = [

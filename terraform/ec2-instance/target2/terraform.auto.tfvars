@@ -1,5 +1,5 @@
 env   = "dev"
-name  = "shoppingmall"
+name  = "shoppingmall2"
 owner = "hyun6ik"
 tags  = {}
 
@@ -58,7 +58,7 @@ http_tcp_listener_rules = [
   }
 ]
 
-# http 8080 sg
+# http sg
 http_8080_sg_description = "HTTP 8080 group for Bastion EC2 instance"
 http_8080_ingress_cidr_blocks = ["0.0.0.0/0"]
 http_8080_ingress_rules = ["http-8080-tcp"]
@@ -89,6 +89,7 @@ http_8080_tcp_listener_rules = [
     }]
   }
 ]
+
 
 trusted_role_services = ["ec2.amazonaws.com"]
 custom_role_policy_arns = [

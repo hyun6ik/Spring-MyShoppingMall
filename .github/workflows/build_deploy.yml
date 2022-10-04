@@ -62,3 +62,12 @@ jobs:
       - name: deploy run
         run: |
           sudo sh /home/ubuntu/run.sh
+
+  deploy-replica:
+    needs: build
+    name: Deploy-Replica
+    runs-on: [ self-hosted, replica ]
+    steps:
+      - name: deploy run
+        run: |
+          sudo sh /home/ubuntu/run.sh

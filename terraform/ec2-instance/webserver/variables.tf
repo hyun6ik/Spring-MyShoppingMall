@@ -19,6 +19,13 @@ variable "http_egress_rules" {}
 variable "http_tcp_listeners" {}
 variable "http_tcp_listener_rules" {}
 
+variable "https_sg_description" {}
+variable "https_ingress_cidr_blocks" {}
+variable "https_ingress_rules" {}
+variable "https_egress_rules" {}
+variable "https_tcp_listeners" {}
+variable "https_tcp_listener_rules" {}
+
 variable "http_8080_sg_description" {}
 variable "http_8080_ingress_cidr_blocks" {}
 variable "http_8080_ingress_rules" {}
