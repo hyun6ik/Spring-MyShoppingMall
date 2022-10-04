@@ -22,12 +22,4 @@ locals {
   ssh_ingress_cidr_blocks = var.ssh_ingress_cidr_blocks
   ssh_ingress_rules       = var.ssh_ingress_rules
   ssh_egress_rules        = var.ssh_egress_rules
-
-  elasticsearch_sg_description = var.elasticsearch_sg_description
-  elasticsearch_ingress_cidr_blocks = var.elasticsearch_ingress_cidr_blocks
-  elasticsearch_ingress_rules = var.elasticsearch_ingress_rules
-  elasticsearch_egress_rules = var.elasticsearch_egress_rules
-
-  elasticsearch_tcp_listeners = var.elasticsearch_tcp_listeners
-  elasticsearch_tcp_listener_rules = var.elasticsearch_tcp_listener_rules
 }
