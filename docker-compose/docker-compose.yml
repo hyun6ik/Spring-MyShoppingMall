@@ -53,3 +53,13 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --port 6379
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - 6379:6379
