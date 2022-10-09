@@ -41,7 +41,7 @@ public class MemberRegisterDto {
                     .memberName(name)
                     .email(email)
                     .password(encodedPassword)
-                    .role(MemberRole.ADMIN)
+                    .role(MemberRole.USER)
                     .build();
         }
     }
