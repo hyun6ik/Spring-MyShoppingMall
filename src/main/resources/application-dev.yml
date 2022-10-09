@@ -34,3 +34,7 @@ jasypt:
 
 elasticsearch:
   host: 3.34.43.139:9200
+
+redis:
+  host: 13.209.85.183
+  port: 6379
