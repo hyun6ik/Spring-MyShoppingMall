@@ -11,7 +11,7 @@
 <div align="center">
 
 [![Application](http://img.shields.io/badge/Application-fc3465?style=flat&logo=github&logoColor=white&link=https://hyun6ik.shop)](https://hyun6ik.shop)
-[![Release](https://img.shields.io/badge/release-2.0.0-skyblue.svg)](https://github.com/hyun6ik/Spring-MyShoppingMall/releases/tag/v2.0.0)
+[![Release](https://img.shields.io/badge/release-3.0.0-skyblue.svg)](https://github.com/hyun6ik/Spring-MyShoppingMall/releases/tag/v3.0.0)
 
 </div>
 <br/>
@@ -31,11 +31,12 @@
 
 ## 🛠 Tech Stacks
 
-<img width="638" alt="쇼핑몰 스택5" src="https://user-images.githubusercontent.com/63233168/193897835-9e1e31c0-3bf4-42f9-98c1-b0681daa2435.PNG">
+<img width="650" alt="쇼핑몰 스택6" src="https://user-images.githubusercontent.com/63233168/194770246-aa4d1a18-f048-44cc-ad70-402a43cce7b4.PNG">
 
 
 
 ## 🔌 Infrastructures
 
-<img width="634" alt="쇼핑몰 인프라3" src="https://user-images.githubusercontent.com/63233168/193896517-c1052194-4734-44d2-b7bd-cf791cb3cd5b.PNG">
+<img width="650" alt="쇼핑몰 인프라4" src="https://user-images.githubusercontent.com/63233168/194770248-2844e85d-a664-45d7-b978-e9d77353be2d.PNG">
+
 
