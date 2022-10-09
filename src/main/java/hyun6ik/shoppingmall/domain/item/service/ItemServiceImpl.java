@@ -16,6 +16,9 @@ import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
 import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -53,6 +56,12 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    @Cacheable(
+            key = "#itemId",
+            value = "itemDtl",
+            unless = "#itemId == null"
+    )
+    @LogTrace
     public ItemDtlDto getItemDtlBy(Long itemId) {
         final ItemDtlDto itemDtlDto = itemReader.getItemDtlDtoBy(itemId);
         final List<ItemDtlDto.ItemImageDto> itemImagesDtos = itemReader.getItemImageDtosBy(itemId);
@@ -69,6 +78,10 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    @CacheEvict(
+            key = "#itemId",
+            value = "itemDtl"
+    )
     @Transactional
     public ItemResponseDto updateItem(Long itemId, Long memberId, ItemRequestDto.Update request) {
         final Item item = itemReader.getItemBy(itemId, memberId);
