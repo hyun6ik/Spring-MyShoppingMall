@@ -3,6 +3,7 @@ package hyun6ik.shoppingmall.interfaces.item.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class ItemDtlDto {
 
     private Long itemId;
@@ -47,6 +49,7 @@ public class ItemDtlDto {
 
     @Getter @Setter
     @ToString
+    @NoArgsConstructor
     public static class ItemImageDto {
         private String imageUrl;
 
