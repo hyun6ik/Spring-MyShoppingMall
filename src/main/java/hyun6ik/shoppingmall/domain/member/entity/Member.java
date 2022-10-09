@@ -7,11 +7,12 @@ import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseTimeEntity {
+public class Member extends BaseTimeEntity implements Serializable {
 
     private static final String PREFIX_MEMBER = "member_";
 
