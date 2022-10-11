@@ -63,7 +63,7 @@ public class ItemFactory {
         return StringUtils.isBlank(imageFiles.get(i).getOriginalFilename());
     }
 
-    public ItemImages updateItemImages(ItemRequestDto.Update request, ItemImages itemImages) {
+    public ItemImages createUpdateItemImages(ItemRequestDto.Update request, ItemImages itemImages) {
         List<ItemImage> imageList = new ArrayList<>();
 
         for (int i = 0; i < request.getItemImageFiles().size(); i++) {
