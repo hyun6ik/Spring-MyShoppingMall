@@ -17,7 +17,6 @@ import hyun6ik.shoppingmall.interfaces.main.dto.MainItemDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -87,10 +86,11 @@ public class ItemServiceImpl implements ItemService{
         final Item item = itemReader.getItemBy(itemId, memberId);
         final ItemDocument itemDocument = itemReader.getItemDocumentBy(itemId);
 
-        final ItemImages updateItemImages = itemFactory.updateItemImages(request, item.getItemImages());
+        final ItemImages updateItemImages = itemFactory.createUpdateItemImages(request, item.getItemImages());
         final Item updateItem = request.toEntity(memberId);
 
         item.update(updateItem, updateItemImages);
+
         itemDocument.update(item);
         itemStore.store(itemDocument);
 
