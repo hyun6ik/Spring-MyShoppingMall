@@ -37,6 +37,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+          submodules: true
 
       - name: Make gradlew executable
         run: chmod +x gradlew

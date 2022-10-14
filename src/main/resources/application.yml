@@ -41,8 +41,9 @@ spring:
     basename: messages, errors
 
   profiles:
+    include:
+      - aws
     active: local
-    include: aws
 
 
 logging:
