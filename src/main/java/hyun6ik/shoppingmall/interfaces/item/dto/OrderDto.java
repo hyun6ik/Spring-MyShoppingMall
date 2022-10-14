@@ -1,5 +1,6 @@
 package hyun6ik.shoppingmall.interfaces.item.dto;
 
+import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.domain.order.constant.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class OrderDto {
             private Integer count;
             private Integer orderPrice;
             private Long itemId;
+            private ItemSellStatus itemSellStatus;
         }
     }
 
