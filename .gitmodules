@@ -1,0 +1,4 @@
+[submodule "shoppingmall_security"]
+	path = shoppingmall_security
+	url = https://github.com/hyun6ik/shoppingmall_security
+	branch = master
