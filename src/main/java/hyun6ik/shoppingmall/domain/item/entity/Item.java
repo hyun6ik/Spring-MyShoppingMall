@@ -4,6 +4,7 @@ import hyun6ik.shoppingmall.domain.base.BaseTimeEntity;
 import hyun6ik.shoppingmall.domain.item.constant.ItemSellStatus;
 import hyun6ik.shoppingmall.global.utils.TokenGenerator;
 import lombok.*;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;

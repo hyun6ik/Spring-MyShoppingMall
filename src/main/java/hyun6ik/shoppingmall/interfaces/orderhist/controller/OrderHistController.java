@@ -3,11 +3,13 @@ package hyun6ik.shoppingmall.interfaces.orderhist.controller;
 import hyun6ik.shoppingmall.application.order.OrderFacade;
 import hyun6ik.shoppingmall.domain.order.service.OrderService;
 import hyun6ik.shoppingmall.global.annotation.MemberId;
+import hyun6ik.shoppingmall.interfaces.orderhist.dto.OrderCancelDto;
 import hyun6ik.shoppingmall.interfaces.orderhist.dto.OrderHistDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +38,8 @@ public class OrderHistController {
 
     @ResponseBody
     @PutMapping("/{orderId}/cancel")
-    public void cancelOrder(@PathVariable Long orderId) {
-        orderFacade.cancelOrder(orderId);
+    public ResponseEntity<OrderCancelDto> cancelOrder(@PathVariable Long orderId) {
+        return ResponseEntity.ok(orderFacade.cancelOrder(orderId));
     }
 
 }
