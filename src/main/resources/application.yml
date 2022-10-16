@@ -6,7 +6,8 @@ server:
 spring:
 
   flyway:
-    enabled: false
+    enabled: true
+    baseline-on-migrate: true
 
   jpa:
     properties:
@@ -43,6 +44,7 @@ spring:
   profiles:
     include:
       - aws
+      - oauth2
     active: local
 
 
