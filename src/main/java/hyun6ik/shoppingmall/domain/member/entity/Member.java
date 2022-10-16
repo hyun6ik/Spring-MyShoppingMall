@@ -24,7 +24,7 @@ public class Member extends BaseTimeEntity implements Serializable {
     private String memberName;
     @Column(nullable = false, unique = true, length = 50)
     private String email;
-    @Column(nullable = false, length = 200)
+    @Column(length = 200)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -38,13 +38,17 @@ public class Member extends BaseTimeEntity implements Serializable {
 
 
     @Builder
-    public Member(String memberName, String email, String password, MemberRole role) {
+    public Member(String memberName, String email, String password, MemberRole role, MemberType memberType) {
         this.email = email;
         this.memberName = memberName;
-        this.type = MemberType.GENERAL;
+        this.type = memberType;
         this.password = password;
         this.role = role;
         this.memberToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MEMBER);
     }
 
+    public Member updateName(String memberName) {
+        this.memberName = memberName;
+        return this;
+    }
 }
