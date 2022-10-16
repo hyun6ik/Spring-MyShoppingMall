@@ -1,6 +1,7 @@
 package hyun6ik.shoppingmall.interfaces.login.dto;
 
 import hyun6ik.shoppingmall.domain.member.constant.MemberRole;
+import hyun6ik.shoppingmall.domain.member.constant.MemberType;
 import hyun6ik.shoppingmall.domain.member.entity.Member;
 import lombok.*;
 
@@ -42,6 +43,7 @@ public class MemberRegisterDto {
                     .email(email)
                     .password(encodedPassword)
                     .role(MemberRole.USER)
+                    .memberType(MemberType.GENERAL)
                     .build();
         }
     }
