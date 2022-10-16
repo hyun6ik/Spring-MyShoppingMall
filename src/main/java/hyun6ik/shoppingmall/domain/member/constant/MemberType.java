@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MemberType {
 
-    GENERAL("일반 회원");
+    GENERAL("일반 회원"), GOOGLE("구글 로그인");
 
     private final String description;
 }
