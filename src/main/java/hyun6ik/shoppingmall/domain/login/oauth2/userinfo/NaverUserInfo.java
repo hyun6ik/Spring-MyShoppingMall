@@ -10,8 +10,7 @@ public class NaverUserInfo extends OAuth2Attributes{
     }
 
     public static OAuth2Attributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
-        Map<String, Object> attributesAccount = (Map<String, Object>) attributes.get("response");
-        Map<String, Object> attributesProfile = (Map<String, Object>) attributesAccount.get("response");
+        Map<String, Object> attributesProfile = (Map<String, Object>) attributes.get("response");
 
         return OAuth2Attributes.builder()
                 .memberName((String) attributesProfile.get("name"))
