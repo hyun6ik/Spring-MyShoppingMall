@@ -1,4 +1,4 @@
-package hyun6ik.shoppingmall.domain.login.oauth2;
+package hyun6ik.shoppingmall.domain.login.oauth2.userinfo;
 
 import hyun6ik.shoppingmall.domain.member.constant.MemberRole;
 import hyun6ik.shoppingmall.domain.member.constant.MemberType;

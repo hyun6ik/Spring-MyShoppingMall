@@ -1,6 +1,6 @@
 package hyun6ik.shoppingmall.global.config.security;
 
-import hyun6ik.shoppingmall.domain.login.oauth2.CustomOAuth2MemberService;
+import hyun6ik.shoppingmall.domain.login.oauth2.CustomOAuth2LoginService;
 import hyun6ik.shoppingmall.domain.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final LoginService loginService;
     private final CustomAuthenticationFailureHandler authenticationFailureHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
-    private final CustomOAuth2MemberService oAuth2MemberService;
+    private final CustomOAuth2LoginService oAuth2MemberService;
 
     @Override
     public void configure(WebSecurity web) throws Exception {

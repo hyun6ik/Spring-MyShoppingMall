@@ -20,7 +20,9 @@ public enum ErrorCode {
 
     NOT_UPLOAD_REP_IMAGE(400,"첫번째 상품 이미지는 필수 입력 값입니다."),
 
-    NOT_ENOUGH_STOCK(400,"상품의 재고가 부족합니다.");
+    NOT_ENOUGH_STOCK(400,"상품의 재고가 부족합니다."),
+
+    INVALID_SOCIAL_LOGIN(400, "유효하지 않은 소셜 로그인 정보입니다.");
 
     ErrorCode(int status, String message) {
         this.status = status;
