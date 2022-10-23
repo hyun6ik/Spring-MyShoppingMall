@@ -26,16 +26,6 @@ public class OAuth2Attributes {
         this.memberType = memberType;
     }
 
-    public static OAuth2Attributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
-        return OAuth2Attributes.builder()
-                .memberName((String) attributes.get("name"))
-                .email((String) attributes.get("email"))
-                .attributes(attributes)
-                .nameAttributeKey(userNameAttributeName)
-                .memberType(MemberType.valueOf(registrationId.toUpperCase()))
-                .build();
-    }
-
     public Member toEntity() {
         return Member.builder()
                 .email(email)
