@@ -19,6 +19,16 @@ spring:
     username: sa
     password:
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ENC(mgk9B1Xo6EnnG59I25UQ5VjD1eif29YtN2gR+oz1fyjg36E2Z6Xc1NWBRnEXItQPTj1uoCDcwF8uwT2NSYtdS7kfxT53al9m2dC4q97kEnYpZdbEAy7Shg==)
+            client-secret: ENC(A+2Ourxz9vyx4ZvghvtoW+IYC7uOB+jfhpvpAerSt12LC2rtyoY0rgFfkK1K8/m6)
+            scope: profile, email
+
+
 logging:
   level:
     com:
