@@ -34,8 +34,13 @@ public class ItemEsQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     public Page<MainItemDto> searchMainItemsBy(String searchQuery, Pageable pageable) {
-        final Criteria criteria = Criteria.where("itemName").expression("*" + searchQuery + "*")
-                .or("itemDetail").expression("*" + searchQuery + "*");
+        String fixedQuery = "";
+        if (!"".equals(searchQuery)) {
+            fixedQuery = findQuotes(searchQuery);
+        }
+
+        final Criteria criteria = Criteria.where("itemName").expression("*" + fixedQuery + "*")
+                .or("itemDetail").expression("*" + fixedQuery + "*");
 
         final Query query = new CriteriaQuery(criteria);
         final SearchHits<ItemDocument> search = elasticsearchOperations.search(query, ItemDocument.class);
@@ -44,6 +49,17 @@ public class ItemEsQueryRepository {
                 .map(ItemDocument::getId)
                 .collect(Collectors.toList());
         return findAllByIds(ids, pageable);
+    }
+
+    private String findQuotes(String searchQuery) {
+        final StringBuilder builder = new StringBuilder();
+        for (char c : searchQuery.toCharArray()) {
+            if (c == '"') {
+                continue;
+            }
+            builder.append(c);
+        }
+        return builder.toString();
     }
 
     private Page<MainItemDto> findAllByIds(List<Long> ids, Pageable pageable) {
