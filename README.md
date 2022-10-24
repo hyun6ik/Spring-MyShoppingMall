@@ -5,13 +5,13 @@
 <div align="center">
 
  :gift: 나만의 작은 쇼핑몰 <br>
-  🖋 [현식이네가게 (MyShoppingMall)](https://github.com/hyun6ik/Spring-MyShoppingMall)
+  🖋 [현식이네가게 (MyShoppingMall)](https://hyun6ik.shop)
 </div>
 
 <div align="center">
 
 [![Application](http://img.shields.io/badge/Application-fc3465?style=flat&logo=github&logoColor=white&link=https://hyun6ik.shop)](https://hyun6ik.shop)
-[![Release](https://img.shields.io/badge/release-3.5.1-skyblue.svg)](https://github.com/hyun6ik/Spring-MyShoppingMall/releases/tag/v3.5.1)
+[![Release](https://img.shields.io/badge/release-3.5.2-skyblue.svg)](https://github.com/hyun6ik/Spring-MyShoppingMall/releases/tag/v3.5.2)
 
 </div>
 <br/>

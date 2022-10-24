@@ -9,6 +9,7 @@ public enum ErrorCode {
     ALREADY_REGISTERED_MEMBER(400, "이미 가입된 회원 입니다."),
     MISMATCHED_PASSWORD(401, "패스워드가 일치하지 않습니다."),
     LOGIN_ERROR(401, "아이디 또는 비밀번호를 확인해주세요"),
+    NOT_LOGIN_MEMBER(400, "로그인이 필요합니다."),
 
     INVALID_ADMIN_ROLE(400,"관리자 계정이 아닙니다."),
 
@@ -23,6 +24,7 @@ public enum ErrorCode {
     NOT_ENOUGH_STOCK(400,"상품의 재고가 부족합니다."),
 
     INVALID_SOCIAL_LOGIN(400, "유효하지 않은 소셜 로그인 정보입니다.");
+
 
     ErrorCode(int status, String message) {
         this.status = status;
