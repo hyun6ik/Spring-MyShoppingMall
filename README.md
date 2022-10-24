@@ -5,7 +5,7 @@
 <div align="center">
 
  :gift: 나만의 작은 쇼핑몰 <br>
-  🖋 [현식이네가게 (MyShoppingMall)](https://github.com/hyun6ik/Spring-MyShoppingMall)
+  🖋 [현식이네가게 (MyShoppingMall)](https://hyun6ik.shop)
 </div>
 
 <div align="center">
