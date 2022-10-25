@@ -24,13 +24,12 @@ public class OrderItem extends BaseTimeEntity {
     @Column(nullable = false, length = 11)
     private Integer orderPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Order order;
 
     @Builder
     public OrderItem(Integer count, Integer orderPrice, Item item) {

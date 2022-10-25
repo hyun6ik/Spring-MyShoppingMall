@@ -1,10 +1,8 @@
 package hyun6ik.shoppingmall.infrastructure.order;
 
 import hyun6ik.shoppingmall.domain.order.entity.Order;
-import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.NotFoundException;
-import hyun6ik.shoppingmall.infrastructure.order.repository.OrderItemRepository;
 import hyun6ik.shoppingmall.infrastructure.order.repository.OrderQueryRepository;
 import hyun6ik.shoppingmall.infrastructure.order.repository.OrderRepository;
 import hyun6ik.shoppingmall.interfaces.orderhist.dto.OrderHistDto;
@@ -20,8 +18,6 @@ public class OrderReader {
 
     private final OrderQueryRepository orderQueryRepository;
     private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
-
 
     public Page<OrderHistDto> getOrderHistDtosBy(Long memberId, Pageable pageable) {
         final Page<OrderHistDto> orderHistDtos = orderQueryRepository.findOrderHistDtosBy(memberId, pageable);
@@ -32,10 +28,5 @@ public class OrderReader {
     public Order getOrderBy(Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ORDER));
-    }
-
-    public OrderItem getOrderItemBy(Long orderId) {
-        return orderItemRepository.findByOrderId(orderId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_ORDER_ITEM));
     }
 }

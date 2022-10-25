@@ -32,22 +32,23 @@ public class Order extends BaseTimeEntity {
 
     private String orderToken;
 
-    @Embedded
-    private OrderItems orderItems;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_item_id")
+    private OrderItem orderItem;
 
     @Builder
-    public Order(Long memberId, LocalDateTime orderTime, OrderItems orderItems) {
+    public Order(Long memberId, LocalDateTime orderTime, OrderItem orderItem) {
         this.orderTime = orderTime;
         this.memberId = memberId;
         this.orderStatus = OrderStatus.ORDER;
         this.orderToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_ORDER);
-        this.orderItems = orderItems;
+        this.orderItem = orderItem;
 
-        orderItems.belongTo(this);
+        orderItem.belongTo(this);
     }
 
-    public static Order createOrder(Long memberId, LocalDateTime orderTime, OrderItems orderItems) {
-        return new Order(memberId, orderTime, orderItems);
+    public static Order createOrder(Long memberId, LocalDateTime orderTime, OrderItem orderItem) {
+        return new Order(memberId, orderTime, orderItem);
     }
 
     public void cancelOrder() {
