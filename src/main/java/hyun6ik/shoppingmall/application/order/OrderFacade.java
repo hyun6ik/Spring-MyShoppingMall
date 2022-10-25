@@ -2,7 +2,7 @@ package hyun6ik.shoppingmall.application.order;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
 import hyun6ik.shoppingmall.domain.item.service.ItemService;
-import hyun6ik.shoppingmall.domain.order.entity.OrderItems;
+import hyun6ik.shoppingmall.domain.order.entity.Order;
 import hyun6ik.shoppingmall.domain.order.service.OrderService;
 import hyun6ik.shoppingmall.infrastructure.order.OrderDtoMapper;
 import hyun6ik.shoppingmall.interfaces.item.dto.OrderDto;
@@ -41,8 +41,8 @@ public class OrderFacade {
             value = "itemDtl"
     )
     public OrderCancelDto cancelOrder(Long orderId) {
-        final OrderItems cancelOrderItems = orderService.cancelOrder(orderId);
-        itemService.increaseStock(cancelOrderItems);
-        return orderDtoMapper.cancel(cancelOrderItems.getOrderItems().get(0));
+        final Order cancelOrder = orderService.cancelOrder(orderId);
+        itemService.increaseStock(cancelOrder.getOrderItem());
+        return orderDtoMapper.cancel(cancelOrder);
     }
 }

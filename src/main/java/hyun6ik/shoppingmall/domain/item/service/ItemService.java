@@ -1,7 +1,7 @@
 package hyun6ik.shoppingmall.domain.item.service;
 
 import hyun6ik.shoppingmall.domain.item.entity.Item;
-import hyun6ik.shoppingmall.domain.order.entity.OrderItems;
+import hyun6ik.shoppingmall.domain.order.entity.OrderItem;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemRequestDto;
 import hyun6ik.shoppingmall.interfaces.adminItem.dto.ItemResponseDto;
 import hyun6ik.shoppingmall.interfaces.item.dto.ItemDtlDto;
@@ -25,5 +25,5 @@ public interface ItemService {
 
     Item getItemBy(Long itemId);
 
-    void increaseStock(OrderItems cancelOrderItem);
+    void increaseStock(OrderItem cancelOrderItem);
 }

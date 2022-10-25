@@ -6,6 +6,7 @@ import hyun6ik.shoppingmall.domain.order.constant.OrderStatus;
 import hyun6ik.shoppingmall.global.exception.ErrorCode;
 import hyun6ik.shoppingmall.global.exception.OrderValidException;
 import hyun6ik.shoppingmall.infrastructure.item.repository.ItemRepository;
+import hyun6ik.shoppingmall.infrastructure.order.repository.OrderItemRepository;
 import hyun6ik.shoppingmall.infrastructure.order.repository.OrderRepository;
 import hyun6ik.shoppingmall.interfaces.item.dto.OrderDto;
 import org.junit.jupiter.api.AfterEach;
@@ -32,9 +33,13 @@ class OrderServiceTest {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @AfterEach
     public void clear() {
         orderRepository.deleteAll();
+        orderItemRepository.deleteAll();
         itemRepository.deleteAll();
     }
 
@@ -54,8 +59,8 @@ class OrderServiceTest {
             //then
             assertThat(response.getMemberId()).isEqualTo(1L);
             assertThat(response.getOrderStatus()).isEqualTo(OrderStatus.ORDER);
-            assertThat(response.getOrderItemDtos().get(0).getOrderPrice()).isEqualTo(80000);
-            assertThat(response.getOrderItemDtos().get(0).getCount()).isEqualTo(count);
+            assertThat(response.getOrderItemDto().getOrderPrice()).isEqualTo(80000);
+            assertThat(response.getOrderItemDto().getCount()).isEqualTo(count);
         }
 
         @Test
