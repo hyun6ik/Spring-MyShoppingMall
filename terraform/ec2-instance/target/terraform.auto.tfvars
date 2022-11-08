@@ -17,7 +17,7 @@ ami_filters = [
 ]
 
 # EC2
-instance_type = "t3.medium"
+instance_type = "t2.micro"
 key_name      = "dev"
 
 # ssh sg
